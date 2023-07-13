@@ -44,8 +44,8 @@ const authContainer = () => {
 
 
     return (
-        <Box style={{ height: '75vh', width: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-            <Paper elevation={4} sx={{ width: { xs: '90%', md: '40%' }, padding: { xs: '5% 5%', md: '3% 3%' }, margin: { xs: '0px 5%', md: '0' }, display: 'flex', flexDirection: 'column', gap: '25px' }}>
+        <Box style={{ height: '100vh', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <Paper elevation={4} sx={{ width: { xs: '90%', md: '40%' }, padding: { xs: '5% 5%', md: '3% 3%' }, margin: { xs: '15% 0', md: '10% 0' }, display: 'flex', flexDirection: 'column', gap: '25px' }}>
                 <Box sx={{ display:'flex', justifyContent:'space-between', alignItems:'center' }}>
                     <Tabs
                         value={value}
@@ -59,7 +59,7 @@ const authContainer = () => {
                         <Tab label="Signup" sx={{ fontWeight:'600' }} />
                     </Tabs>
 
-                   <Typography sx={{ fontSize:'28px', fontFamily: "'Pacifico', cursive", color:'blue' }}>DigiChat</Typography>
+                   {/* <Typography sx={{ fontSize:'28px', fontFamily: "'Pacifico', cursive", color:'blue' }}>DigiChat</Typography> */}
                 </Box>
 
                 <TabPanel value={value} index={0}>

@@ -1,16 +1,21 @@
 import { Route, Routes } from 'react-router-dom'
 import './App.css'
+
 import MainLayout from './layout/MainLayout'
 import AuthenticationContainer from './pages/auth/AuthenticationContainer'
+import Home from './pages/Home'
+import Chats from './pages/Chats'
 
 function App() {
 
   return (
     <>
       <MainLayout>
-          <Routes>
+        <Routes>
           <Route path='/' element={<AuthenticationContainer />} />
-          </Routes>
+          <Route path='/home' element={<Home />} />
+          <Route path='/chats' element={<Chats />} />
+        </Routes>
       </MainLayout>
     </>
   )
