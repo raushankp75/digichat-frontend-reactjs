@@ -78,6 +78,18 @@ const Signup = () => {
     }
 
 
+
+     // reset the data
+     const resetData = () => {
+        setSignupData({
+            name: '',
+            email: '',
+            password: '',
+        })
+    }
+
+
+
     // submit all data to api
     const submitHandler = (e) => {
         console.log(signupData, pic);
@@ -102,22 +114,21 @@ const Signup = () => {
             console.log("Signup Success", res)
             setLoading(false);
             toast.success('User Registered successfully')
+            resetData();
         }).catch((error) => {
-            console.log("Signup Error", error)
-            setLoading(false);
+            if (error.response.data.message) {
+                console.log("Signup Error", error.response.data.message)
+                setLoading(false);
+                toast.error(error.response.data.message)
+            }
+
+            // console.log(error)
+
         })
     }
 
 
 
-    // reset the data
-    const resetData = () => {
-        setSignupData({
-            name: '',
-            email: '',
-            password: '',
-        })
-    }
 
 
 
@@ -182,7 +193,7 @@ const Signup = () => {
                     </Button>
                 </Box>
 
-                <Box sx={{ display:'flex', gap:'80px' }}>
+                <Box sx={{ display: 'flex', gap: '80px' }}>
                     <Button type='submit' onClick={submitHandler} color='primary' variant="contained" sx={{ margin: '10px 0', fontWeight: 600 }} fullWidth>Signup</Button>
                     <Button onClick={resetData} color='error' variant="contained" sx={{ margin: '10px 0', fontWeight: 600 }} fullWidth>Reset</Button>
                 </Box>
