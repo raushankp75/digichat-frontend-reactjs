@@ -7,6 +7,8 @@ import { Box, Button, CardMedia, TextField, Typography } from '@mui/material'
 import { BiSolidHide, BiSolidShow } from 'react-icons/bi'
 import Loader from '../../components/Loader/Loader';
 
+import { signup } from '../../services/userService';
+
 const Signup = () => {
 
     // const profileUpload = 'https://static.thenounproject.com/png/5657068-200.png'
@@ -78,7 +80,7 @@ const Signup = () => {
 
     // submit all data to api
     const submitHandler = (e) => {
-        console.log(signupData);
+        console.log(signupData, pic);
         e.preventDefault();
 
         // validation
@@ -96,7 +98,14 @@ const Signup = () => {
         }
 
         // call server api for sending data here
-
+        signup(signupData, pic).then((res) => {
+            console.log("Signup Success", res)
+            setLoading(false);
+            toast.success('User Registered successfully')
+        }).catch((error) => {
+            console.log("Signup Error", error)
+            setLoading(false);
+        })
     }
 
 
