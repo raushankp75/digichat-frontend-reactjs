@@ -8,6 +8,7 @@ import { BiSolidHide, BiSolidShow } from 'react-icons/bi'
 import Loader from '../../components/Loader/Loader';
 import { login } from '../../services/userService';
 import { useNavigate } from 'react-router-dom';
+import { doLogin } from '../../auth';
 
 
 
@@ -57,15 +58,25 @@ const Login = () => {
 
     // Submit data to server to generate token
     login(loginData).then((loggedInData) => {
-      console.log(loggedInData)
+      console.log(loggedInData.token)
+      console.log(loggedInData.user)
+
+      // save data to localstorage
+      doLogin(loggedInData, () => {
+        console.log('Login details is saved to localStorage')
+
+        // navigate to home page
+        navigate('/home');
+      })
+
       setLoading(false);
-      navigate('/home');
+
       toast.success(`Welcome ${res.name}`)
     }).catch((error) => {
       // console.log(error)
       // if (error.response.status === 400 || error.response.status === 404 || error.response.status === 401) {
 
-      if (error.response.data.message) {
+      if (error.response.data) {
         // console.log("Signup Error", error.response.data.message)
         setLoading(false);
         toast.error(error.response.data.message)
