@@ -1,17 +1,20 @@
 import React, { useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+// import { useNavigate } from 'react-router-dom'
+import {getCurrentUserDetails} from '../auth/index'
 
 const HomePage = () => {
 
-  const navigate = useNavigate();
+  // console.log("User Details", getCurrentUserDetails())
 
-  useEffect(() =>{
-    getCurrentUserDetails()
+  // const navigate = useNavigate();
 
-    if(getCurrentUserDetails()){
-      navigate('/chats')
-    }
-  })
+  // useEffect(() =>{
+  //   getCurrentUserDetails()
+
+  //   if(getCurrentUserDetails()){
+  //     navigate('/chats')
+  //   }
+  // })
 
 
   return (
