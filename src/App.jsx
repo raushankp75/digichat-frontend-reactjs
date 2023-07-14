@@ -8,6 +8,8 @@ import MainLayout from './layout/MainLayout'
 import AuthenticationContainer from './pages/authentication/AuthenticationContainer'
 import Home from './pages/Home'
 import Chats from './pages/Chats'
+import PrivateRoute from './components/routes/PrivateRoute';
+import PageNotFound from './components/PageNotFound';
 
 function App() {
 
@@ -17,8 +19,12 @@ function App() {
         <ToastContainer position='top-center' />
         <Routes>
           <Route path='/' element={<AuthenticationContainer />} />
-          <Route path='/home' element={<Home />} />
-          <Route path='/chats' element={<Chats />} />
+          <Route path='*' element={<PageNotFound />} />
+
+          <Route path='/user' element={<PrivateRoute />}>
+            <Route path='home' element={<Home />} />
+            <Route path='chats' element={<Chats />} />
+          </Route>
         </Routes>
       </MainLayout>
     </>

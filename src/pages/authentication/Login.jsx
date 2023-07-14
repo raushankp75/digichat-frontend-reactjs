@@ -34,7 +34,6 @@ const Login = () => {
   // reset the data
   const resetData = () => {
     setLoginData({
-      name: '',
       email: '',
       password: '',
     })
@@ -66,12 +65,11 @@ const Login = () => {
         console.log('Login details is saved to localStorage')
 
         // navigate to home page
-        navigate('/home');
+        navigate('/user/home');
+        setLoading(false);
+        toast.success(`Welcome ${loggedInData.user.name}`)
       })
 
-      setLoading(false);
-
-      toast.success(`Welcome ${res.name}`)
     }).catch((error) => {
       // console.log(error)
       // if (error.response.status === 400 || error.response.status === 404 || error.response.status === 401) {
@@ -86,6 +84,16 @@ const Login = () => {
       }
     })
 
+  }
+
+
+  // Guest Login
+  const guestLogin = (e) => {
+    e.preventDefault();
+    setLoginData({
+      email: 'guest@gmail.com',
+      password: 'guest'
+    })
   }
 
 
@@ -112,10 +120,12 @@ const Login = () => {
         </Box>
 
 
-        <Box sx={{ display: 'flex', gap: '80px', margin: '20px 0', }}>
+        <Box sx={{ display: 'flex', gap: '80px', margin: '10px 0', }}>
           <Button type='submit' onClick={submitHandler} color='primary' variant="contained" sx={{ margin: '10px 0', fontWeight: 600 }} fullWidth>Login</Button>
           <Button onClick={resetData} color='error' variant="contained" sx={{ margin: '10px 0', fontWeight: 600 }} fullWidth>Reset</Button>
         </Box>
+
+        <Button type='submit' onClick={guestLogin} color='grey' variant="contained" sx={{ fontWeight: 600 }} fullWidth>Guest Login</Button>
 
         {/* <Typography sx={{ textAlign: 'center', fontSize: '13px', margin: '5px 0' }}>OR</Typography> */}
 

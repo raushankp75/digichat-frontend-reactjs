@@ -2,7 +2,11 @@
 export const isAuthenticated = () => {
     let data = localStorage.getItem('loggedInData')
 
-    if (loggedInData != null) return true; else return false;
+    if (data != null) {
+        return true;
+    }else{
+        return false;
+    }
 }
 
 // dologin -> set data to localstorage
