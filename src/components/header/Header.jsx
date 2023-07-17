@@ -11,23 +11,15 @@ import { ChatState } from '../../context/ChatProvider';
 import ProfileModal from '../ProfileModal';
 import { doLogout, isAuthenticated } from '../../auth';
 import { useNavigate } from 'react-router-dom';
-import { CiSearch } from 'react-icons/ci'
 // import MenuIcon from '@mui/icons-material/Menu';
 
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import axios from 'axios';
-import Loader from '../loader/Loader';
-import ChatLoading from '../loader/ChatLoading';
+
 
 
 
 export default function Header() {
 
-    const [search, setSearch] = React.useState("");
-    const [searchResult, setSearchResult] = React.useState([]);
-    const [loading, setLoading] = React.useState(false);
-    const [loadingChat, setLoadingChat] = React.useState();
+    
 
     const navigate = useNavigate()
 
@@ -56,30 +48,7 @@ export default function Header() {
 
 
 
-    // Search user
-    const handleSearch = async () => {
-        if (!search) {
-            toast.warn('Write any name or email in search box')
-        }
-
-        try {
-            setLoading(true);
-
-            const config = {
-                headers: {
-                    Authorization: `Bearer ${isAuthenticated().token}`
-                }
-            };
-
-            const { data } = await axios.get(`http://localhost:8000/api/user?search=${search}`, config)
-
-            setLoading(false);
-            setSearchResult(data);
-        } catch {
-            toast.warn('Write any name or email in search box')
-        }
-    }
-
+    
 
 
     return (
@@ -110,20 +79,7 @@ export default function Header() {
 
 
 
-                    {/* Search component */}
-                    <Box>
-                        <Box sx={{ backgroundColor: 'white', borderRadius: '10px', height: '2.5rem', padding: '0 15px', display: 'flex', alignItems: 'center', boxShadow: '0px 0px 8px #ddd' }}>
-                            <input type="text" value={search} onChange={(e) => setSearch(e.target.value)} placeholder='Search by name and email' style={{ backgroundColor: 'transparent', border: 'none', outline: 'none', height: '100%', fontSize: '1rem', width: '100%', marginLeft: '5px' }} />
-
-                            <Button onClick={handleSearch}> <CiSearch size={23} color='blue' /></Button>
-                        </Box>
-
-                        {loading ? (
-                            <Skeleton />
-                        ) : (
-                            <span>Result</span>
-                        )}
-                    </Box>
+                    
 
 
 
