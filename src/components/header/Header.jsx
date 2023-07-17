@@ -5,13 +5,31 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
-import { Avatar, Badge, Menu, MenuItem, TextField } from '@mui/material';
+import { Avatar, Badge, Menu, MenuItem, Skeleton, TextField } from '@mui/material';
 import { IoIosNotifications } from 'react-icons/io'
 import { ChatState } from '../../context/ChatProvider';
 import ProfileModal from '../ProfileModal';
+import { doLogout, isAuthenticated } from '../../auth';
+import { useNavigate } from 'react-router-dom';
+import { CiSearch } from 'react-icons/ci'
 // import MenuIcon from '@mui/icons-material/Menu';
 
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import axios from 'axios';
+import Loader from '../loader/Loader';
+import ChatLoading from '../loader/ChatLoading';
+
+
+
 export default function Header() {
+
+    const [search, setSearch] = React.useState("");
+    const [searchResult, setSearchResult] = React.useState([]);
+    const [loading, setLoading] = React.useState(false);
+    const [loadingChat, setLoadingChat] = React.useState();
+
+    const navigate = useNavigate()
 
     const [profileOpen, setProfileOpen] = React.useState(null)
     const [notificationOpen, setNotificationOpen] = React.useState(null)
@@ -35,6 +53,32 @@ export default function Header() {
 
     // user details
     const { user } = ChatState()
+
+
+
+    // Search user
+    const handleSearch = async () => {
+        if (!search) {
+            toast.warn('Write any name or email in search box')
+        }
+
+        try {
+            setLoading(true);
+
+            const config = {
+                headers: {
+                    Authorization: `Bearer ${isAuthenticated().token}`
+                }
+            };
+
+            const { data } = await axios.get(`http://localhost:8000/api/user?search=${search}`, config)
+
+            setLoading(false);
+            setSearchResult(data);
+        } catch {
+            toast.warn('Write any name or email in search box')
+        }
+    }
 
 
 
@@ -64,9 +108,25 @@ export default function Header() {
                         News
                     </Typography> */}
 
+
+
+                    {/* Search component */}
                     <Box>
-                        <TextField placeholder='Search...' />
+                        <Box sx={{ backgroundColor: 'white', borderRadius: '10px', height: '2.5rem', padding: '0 15px', display: 'flex', alignItems: 'center', boxShadow: '0px 0px 8px #ddd' }}>
+                            <input type="text" value={search} onChange={(e) => setSearch(e.target.value)} placeholder='Search by name and email' style={{ backgroundColor: 'transparent', border: 'none', outline: 'none', height: '100%', fontSize: '1rem', width: '100%', marginLeft: '5px' }} />
+
+                            <Button onClick={handleSearch}> <CiSearch size={23} color='blue' /></Button>
+                        </Box>
+
+                        {loading ? (
+                            <Skeleton />
+                        ) : (
+                            <span>Result</span>
+                        )}
                     </Box>
+
+
+
 
                     {/* dropdown */}
                     <Box>
@@ -86,19 +146,27 @@ export default function Header() {
                         </Menu>
 
                         {/* profile and logout menu */}
-                        <Button color="inherit" onClick={handleProfileOpen}><Avatar src={user.pic} alt="Remy Sharp" /></Button>
+                        <Button color="inherit" onClick={handleProfileOpen}><Avatar src='' alt="Remy Sharp" /></Button>
                         <Menu open={Boolean(profileOpen)} onClose={handleProfileClose} anchorEl={profileOpen}>
                             <MenuItem onClick={() => {
                                 handleProfilePopupModalOpen()
                                 handleProfileClose()
                             }}>Profile
                             </MenuItem>
-                            <MenuItem onClick={handleProfileClose}>Logout</MenuItem>
+                            <MenuItem onClick={() => {
+                                doLogout(navigate('/'));
+                                handleProfileClose();
+                            }}>Logout
+                            </MenuItem>
                         </Menu>
 
                         {/* profile modal */}
                         {profilePopupModal && <ProfileModal user={user} setProfilePopupModal={setProfilePopupModal} />}
                     </Box>
+
+
+
+
                 </Toolbar>
             </AppBar>
         </Box>

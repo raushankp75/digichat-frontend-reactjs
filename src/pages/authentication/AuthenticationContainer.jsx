@@ -45,7 +45,7 @@ const authContainer = () => {
 
     return (
         <Box style={{ height: '100vh', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <Paper elevation={4} sx={{ width: { xs: '90%', md: '40%' }, padding: { xs: '5% 5%', md: '3% 3%' }, margin: { xs: '15% 0', md: '10% 0' }, display: 'flex', flexDirection: 'column', gap: '25px' }}>
+            <Paper elevation={4} sx={{ width: { xs: '90%', md: '25%' }, padding: { xs: '5% 5%', md: '3% 3%' }, margin: { xs: '15% 0', md: '5% 0' }, display: 'flex', flexDirection: 'column', gap: '25px' }}>
                 <Box sx={{ display:'flex', justifyContent:'space-between', alignItems:'center' }}>
                     <Tabs
                         value={value}
