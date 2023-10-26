@@ -40,7 +40,7 @@ export default function Header() {
 
     // user details
     const { user } = ChatState()
-    console.log(user, 43)
+    // console.log(user, 43)
 
 
 
@@ -106,8 +106,8 @@ export default function Header() {
                             }}>Profile
                             </MenuItem>
                             <MenuItem onClick={() => {
-                                doLogout(navigate('/'));
-                                handleProfileClose();
+                                doLogout();
+                                // handleProfileClose();
                             }}>Logout
                             </MenuItem>
                         </Menu>

@@ -16,7 +16,7 @@ import SearchUserList from './SearchUserList';
 const SearchBox = () => {
 
     const { user, setSelectedChat, chats, setChats } = ChatState();
-    console.log("User Details from mainchats", user)
+    // console.log("User Details from mainchats", user)
 
     const [search, setSearch] = React.useState("");
     const [searchResult, setSearchResult] = React.useState([]);
@@ -46,7 +46,7 @@ const SearchBox = () => {
             const { data } = await axios.get(`http://localhost:8000/api/user?search=${search}`, config)
 
             setSearchResult(data);
-            console.log("75", searchResult);
+            // console.log("75", searchResult);
             setLoading(false);
         } catch {
             toast.error('Failed to load the search results')
@@ -57,7 +57,7 @@ const SearchBox = () => {
 
     // after search select a user and Create a chat
     const accessChat = async (userId) => {
-        console.log(userId)
+        // console.log(userId)
         try {
             setLoadingChat(true);
 
@@ -71,12 +71,13 @@ const SearchBox = () => {
             const { data } = await axios.post(`http://localhost:8000/api/chat`, { userId }, config);
 
             // if chat already have in db then append it
-            if (!chats.find((c) => c._id === data._id)) {
+            if (!chats.find((chat) => chat._id === data._id)) {
                 setChats([data, ...chats]);
             }
 
             setSelectedChat(data);
             setLoadingChat(false);
+            setIsOpen(false)
         } catch (error) {
             toast.error('Error fetching the chats')
         }
@@ -104,12 +105,12 @@ const SearchBox = () => {
                             <ChatLoading />
                         ) : (
                             searchResult.map((user) => (
-                                <Box onClick={() => setIsOpen(false)}>
+                                <Box>
                                     {/* console.log(98, user) */}
                                     <SearchUserList
                                         key={user._id}
                                         user={user}
-                                        handleSearch={() => accessChat(user.user._id)}
+                                        handleFunction={() => accessChat(user._id)}
                                     />
                                 </Box>
                             ))

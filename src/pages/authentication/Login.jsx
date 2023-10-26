@@ -65,7 +65,8 @@ const Login = () => {
         console.log('Login details is saved to localStorage')
 
         // navigate to home page
-        navigate('/user/chats');
+        // navigate('/user/chats');
+        window.location.href = '/user/chats'
         setLoading(false);
         toast.success(`Welcome ${loggedInData.user.name}`)
       })

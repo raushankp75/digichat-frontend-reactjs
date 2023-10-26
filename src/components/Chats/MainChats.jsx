@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Box } from '@mui/material'
+import { Box, Button } from '@mui/material'
 import SearchBox from '../search/SearchBox'
 import { ChatState } from '../../context/ChatProvider';
 
@@ -29,6 +29,7 @@ const MainChats = () => {
 
       const { data } = await axios.get(`http://localhost:8000/api/chat`, config);
 
+      console.log(data, 32)
       setChats(data);
     } catch (error) {
       toast.error('Failed to load the chats')
@@ -41,15 +42,26 @@ const MainChats = () => {
     fetchChats();
   }, []);
 
-  
+
 
   return (
     <>
-      <Box display='flex' flexDirection='column' gap='20px'>
-        {/* <input type='text' placeholder='Search by name and email' style={{ padding:'10px 10px' }} /> */}
-            
+      {/* <Box display='flex' flexDirection='column' gap='20px'> */}
+
+      <Box sx={{ display: { xs: selectedChat ? 'none' : 'flex', sm: 'flex' }, width: {xs: '100%', sm:'20%'}, flexDirection: 'column', alignItems: 'center', padding: '5px', background: 'white', borderRadius: '10px', border: '2px solid black', height: '88vh', marginTop:'5px', marginLeft:'5px' }}>
         <SearchBox />
+
+        <Box sx={{ paddingBottom: '4px', paddingX: '4px', fontSize: '18px', display: 'flex', width: '100%', justifyContent: 'space-between', alignItems: 'center' }}>
+          My Chats
+
+          <Button>New Group Chat</Button>
+        </Box>
+
+        {/* <Box>
+          hdghsd
+        </Box> */}
       </Box>
+      {/* </Box> */}
     </>
   )
 }

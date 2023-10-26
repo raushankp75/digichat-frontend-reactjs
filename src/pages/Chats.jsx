@@ -8,7 +8,7 @@ import Header from '../components/header/Header';
 const Chats = () => {
 
   const { user } = ChatState();
-  console.log("User Details", user)
+  // console.log("User Details", user)
 
   return (
     <Box>

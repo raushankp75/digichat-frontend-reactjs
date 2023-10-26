@@ -16,9 +16,9 @@ export const doLogin = (loggedInData, next) => {
 }
 
 // dologout -> remove data from localstorage
-export const doLogout=(next)=>{
+export const doLogout=()=>{
     localStorage.removeItem('loggedInData');
-    next();
+    window.location.href = '/'
 }
 
 // get current user
