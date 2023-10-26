@@ -5,7 +5,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
-import { Avatar, Badge, Menu, MenuItem, Skeleton, TextField } from '@mui/material';
+import { Avatar, Badge, CardMedia, Menu, MenuItem, Skeleton, TextField } from '@mui/material';
 import { IoIosNotifications } from 'react-icons/io'
 import { ChatState } from '../../context/ChatProvider';
 import ProfileModal from '../ProfileModal';
@@ -40,6 +40,7 @@ export default function Header() {
 
     // user details
     const { user } = ChatState()
+    console.log(user, 43)
 
 
 
@@ -114,16 +115,16 @@ export default function Header() {
                         {/* profile modal */}
                         {/* {profilePopupModal && <ProfileModal user={user} setProfilePopupModal={setProfilePopupModal} />} */}
                         <ProfileModal profilePopupModal={profilePopupModal} onClose={() => setProfilePopupModal(false)}>
-                            {/* <div className='text-center w-64' >
-                                
-                            </div> */}
-
-                            <Box sx={{textAlign:'center', width:'256px', color:'black'}}>
-                                This is profile modal
+                            <Box sx={{ textAlign: 'center', width: '256px', color: 'black', display:'flex', flexDirection:'column', alignItems:'center', gap:'10px' }}>
+                                <CardMedia
+                                    component='img'
+                                    image={user?.user?.pic}
+                                    alt={user?.user?.name}
+                                    sx={{ height: '70px', width: '80px', objectFit: 'fill', border: '1px solid white', outline: 'none' }}
+                                />
+                                <p>{user?.user?.name}</p>
+                                <p>{user?.user?.email}</p>
                             </Box>
-                            {/* <div style={{color:'black'}}>
-                                hiiii
-                            </div> */}
                         </ProfileModal>
                     </Box>
                 </Toolbar>

@@ -17,9 +17,9 @@ const ChatProvider = ({ children }) => {
         // const loggedInData = JSON.parse(localStorage.getItem('loggedInData'));
         setUser(getCurrentUserDetails());
 
-        if(!getCurrentUserDetails()){
-            window.location.href = '/'
-        }
+        // if(!getCurrentUserDetails()){
+        //     navigate('/')
+        // }
 
         // if(!loggedInData){
         //     navigate('/')

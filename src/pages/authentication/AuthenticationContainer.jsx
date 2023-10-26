@@ -20,9 +20,9 @@ const authContainer = () => {
         getCurrentUserDetails()
 
         if (getCurrentUserDetails()) {
-            navigate('/chats')
+            navigate('/user/chats')
         }
-    }, [navigate])
+    }, [])
 
 
     const handleChange = (event, newValue) => {

@@ -5,7 +5,7 @@ import { GrFormClose } from 'react-icons/gr'
 import { RxCross2 } from 'react-icons/rx'
 
 
-const ProfileModal = ({ user, profilePopupModal, onClose, children }) => {
+const ProfileModal = ({ profilePopupModal, onClose, children }) => {
     return (
         <>
             <Box onClick={onClose} sx={{ position: 'fixed', inset: '0', display: 'flex', justifyContent: 'center', alignItems: 'center', transition: 'colors' }} className={profilePopupModal ? 'visiblePopup' : 'invisiblePopup'}>
