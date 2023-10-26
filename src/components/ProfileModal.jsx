@@ -2,28 +2,20 @@ import React from 'react'
 import { Avatar, Box, Button, Modal, Paper, Typography } from '@mui/material'
 import { GrFormClose } from 'react-icons/gr'
 
-const ProfileModal = ({ user, setProfilePopupModal }) => {
+import { RxCross2 } from 'react-icons/rx'
+
+
+const ProfileModal = ({ user, profilePopupModal, onClose, children }) => {
     return (
         <>
-            <Box>
-                <Box sx={{ position: 'fixed', width: '100vw', height: '100vh', top: '0', left: '0', backgroundColor: 'black', opacity: '0.5', display: 'flex', justifyContent: 'center' }}></Box>
-
-                <Box sx={{ position: 'fixed', width: { xs: '87vw', md: '70vw' }, maxHeight: '70vh', top: '30%', left: { xs: '5%', lg: '15%' }, zIndex: '1000', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <Paper sx={{ padding: '20px', width: '35%' }} elevation={20}>
-                        <Box sx={{ display: 'flex', flexDirection: 'row-reverse' }}>
-                            <Typography onClick={() => setProfilePopupModal(false)} sx={{ cursor: 'pointer' }}><GrFormClose size={40} /></Typography>
-                            {/* <Button onClick={() => navigate(-1)}><GrFormClose size={40} /></Button> */}
-                        </Box>
-
-                        <Box display='flex' flexDirection='column' alignItems='center'>
-                            <Avatar src={user.pic} alt="Remy Sharp" sx={{ width:'120px', height:'120px' }} />
-                            <Typography sx={{ fontSize: '30px' }}>{user.name}</Typography>
-                            <Typography sx={{ fontSize: '20px' }}>Email Id: {user.email}</Typography>
-                        </Box>
-                    </Paper>
-
+            <Box onClick={onClose} sx={{ position: 'fixed', inset: '0', display: 'flex', justifyContent: 'center', alignItems: 'center', transition: 'colors' }} className={profilePopupModal ? 'visiblePopup' : 'invisiblePopup'}>
+                {/* modal */}
+                <Box onClick={(e) => e.stopPropagation()} sx={{ background: 'white', display:'flex', flexDirection:'column', borderRadius: '10px', boxShadow: '0px 0px 30px 2px rgba(0,0,0,0.2)', padding: '10px', transition: 'all' }}>
+                    <button onClick={onClose} style={{width:'fixed', alignSelf:'end', background:'transparent', outline:'none', border:'none', cursor:'pointer'}}><RxCross2 size={30} /></button>
+                    {children}
                 </Box>
             </Box>
+
         </>
     )
 }

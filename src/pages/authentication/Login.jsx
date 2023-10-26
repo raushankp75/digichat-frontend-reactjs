@@ -65,7 +65,7 @@ const Login = () => {
         console.log('Login details is saved to localStorage')
 
         // navigate to home page
-        navigate('/user/home');
+        navigate('/user/chats');
         setLoading(false);
         toast.success(`Welcome ${loggedInData.user.name}`)
       })
@@ -102,6 +102,9 @@ const Login = () => {
   const handleShowHide = () => {
     setShow(!show)
   }
+
+
+
 
   return (
 

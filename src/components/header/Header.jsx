@@ -16,10 +16,9 @@ import { useNavigate } from 'react-router-dom';
 
 
 
-
 export default function Header() {
 
-    
+
 
     const navigate = useNavigate()
 
@@ -27,20 +26,16 @@ export default function Header() {
     const [notificationOpen, setNotificationOpen] = React.useState(null)
 
     // for profile modal
-    const [profilePopupModal, setProfilePopupModal] = React.useState(false)
+    let [profilePopupModal, setProfilePopupModal] = React.useState(false)
 
 
     // for open profile
     const handleProfileOpen = (e) => setProfileOpen(e.currentTarget);
     const handleProfileClose = () => setProfileOpen(false)
 
-    // for open profile
+    // for open notification
     const handleNotificationOpen = (e) => setNotificationOpen(e.currentTarget);
     const handleNotificationClose = () => setNotificationOpen(false)
-
-    // for profile modal popupclose
-    const handleProfilePopupModalOpen = () => setProfilePopupModal(true);
-    // const handleProfilePopupModalClose = () => setProfilePopupModal(false);
 
 
     // user details
@@ -48,7 +43,7 @@ export default function Header() {
 
 
 
-    
+
 
 
     return (
@@ -79,7 +74,7 @@ export default function Header() {
 
 
 
-                    
+
 
 
 
@@ -105,7 +100,7 @@ export default function Header() {
                         <Button color="inherit" onClick={handleProfileOpen}><Avatar src='' alt="Remy Sharp" /></Button>
                         <Menu open={Boolean(profileOpen)} onClose={handleProfileClose} anchorEl={profileOpen}>
                             <MenuItem onClick={() => {
-                                handleProfilePopupModalOpen()
+                                setProfilePopupModal(true)
                                 handleProfileClose()
                             }}>Profile
                             </MenuItem>
@@ -117,12 +112,20 @@ export default function Header() {
                         </Menu>
 
                         {/* profile modal */}
-                        {profilePopupModal && <ProfileModal user={user} setProfilePopupModal={setProfilePopupModal} />}
+                        {/* {profilePopupModal && <ProfileModal user={user} setProfilePopupModal={setProfilePopupModal} />} */}
+                        <ProfileModal profilePopupModal={profilePopupModal} onClose={() => setProfilePopupModal(false)}>
+                            {/* <div className='text-center w-64' >
+                                
+                            </div> */}
+
+                            <Box sx={{textAlign:'center', width:'256px', color:'black'}}>
+                                This is profile modal
+                            </Box>
+                            {/* <div style={{color:'black'}}>
+                                hiiii
+                            </div> */}
+                        </ProfileModal>
                     </Box>
-
-
-
-
                 </Toolbar>
             </AppBar>
         </Box>

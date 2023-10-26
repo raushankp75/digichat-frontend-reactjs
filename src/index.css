@@ -1,0 +1,18 @@
+.visiblePopup{
+    visibility: visible;
+    background: black/20;
+}
+
+.invisiblePopup{
+    visibility: hidden;
+}
+
+/* .setOpacityPopup{
+    opacity: 5;
+    scale: 0;
+}
+
+.removeOpacityPopup{
+    opacity: 0;
+    scale: 2;
+} */
