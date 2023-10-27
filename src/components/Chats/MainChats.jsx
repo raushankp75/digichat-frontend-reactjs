@@ -11,9 +11,12 @@ import axios from 'axios';
 import { getCurrentUserDetails } from '../../auth';
 import { Grid } from 'react-loader-spinner';
 import { getSender, getSenderPic } from '../../config/chatLogics';
+import GroupChatSidebar from '../groupchats/GroupChatSidebar';
 
 
 const MainChats = () => {
+
+  let [isOpenSidebar, setIsOpenSidebar] = useState(false)
 
   const [loggedUser, setLoggedUser] = useState();
 
@@ -60,7 +63,10 @@ const MainChats = () => {
         <Box sx={{ color: 'white', paddingBottom: '4px', paddingX: '4px', fontSize: '18px', display: 'flex', width: '100%', justifyContent: 'space-between', alignItems: 'center' }}>
           <Typography sx={{ fontSize: { xs: '20px', sm: '24px' } }}>My Chats</Typography>
 
-          {/* <Button sx={{background:'gray', color:'white'}}>New Group Chat</Button> */}
+          <Button onClick={() => setIsOpenSidebar(true)} sx={{background:'gray', color:'white'}}>New Group Chat</Button>
+          <GroupChatSidebar isOpenSidebar={isOpenSidebar} onClose={() => setIsOpenSidebar(false)}>
+            sgfgfgfjhfdjdgdhdf
+          </GroupChatSidebar>
         </Box>
 
 
@@ -69,12 +75,8 @@ const MainChats = () => {
           {
             chats.map((chat) => (
               <Paper onClick={() => setSelectedChat(chat)} key={chat._id} sx={{ background: selectedChat === chat ? 'gray' : 'transparent', color: selectedChat === chat ? '#222' : 'white', paddingX: '10px', paddingY: '5px', display: 'flex', alignItems: 'center', gap: '20px', cursor: 'pointer', }} elevation={2}>
-
                 <Avatar src={!chat.isGroupChat ? getSenderPic(loggedUser, chat.users) : ''} alt="Remy Sharp" />
-
                 <Box>
-                  {/* <Typography sx={{ fontSize: '15px' }}>{chat.chatName}</Typography>
-                  <Typography sx={{ fontSize: '15px' }}>hhgh</Typography> */}
                   <Typography>
                     {!chat.isGroupChat ? getSender(loggedUser, chat.users) : chat.chatName}
                     {/* {console.log(getSender(loggedUser, chat.users))} */}
