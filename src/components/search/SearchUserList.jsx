@@ -8,8 +8,8 @@ const UserList = ({ user, handleFunction }) => {
     console.log("user list", user)
 
     return (
-        <Grid onClick={handleFunction} item lg={12} sm={12} xs={12} sx={{ cursor: 'pointer' }}>
-            <Paper sx={{ padding: '15px', display: 'flex', alignItems: 'center', gap: '20px' }} elevation={1}>
+        <Grid item lg={12} sm={12} xs={12} sx={{ cursor: 'pointer' }}>
+            <Paper onClick={handleFunction} sx={{ padding: '15px', display: 'flex', alignItems: 'center', gap: '20px' }} elevation={1}>
 
                 <Avatar src={user.pic} alt="Remy Sharp" />
 

@@ -89,7 +89,7 @@ const SearchBox = () => {
         <Box component='div' paddingTop='2vh' display='flex' flexDirection='column'>
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                 <form onSubmit={handleSearch}>
-                    <Box sx={{ backgroundColor: 'white', borderRadius: '10px', height: '2.5rem', padding: '0 15px', display: 'flex', alignItems: 'center', boxShadow: '0px 0px 8px #ddd', marginBottom: '4px' }}>
+                    <Box sx={{ backgroundColor: 'white', borderRadius: '10px', height: '2.5rem', padding: '0 15px', display: 'flex', alignItems: 'center', boxShadow: '0px 0px 30px 5px #0.8', marginBottom: '4px' }}>
                         <input onClick={() => setIsOpen(true)} type="text" value={search} onChange={(e) => setSearch(e.target.value)} placeholder='Search by name and email' style={{ backgroundColor: 'transparent', border: 'none', outline: 'none', height: '100%', fontSize: '1rem', width: '100%', marginLeft: '5px' }} />
 
                         <button type='submit' style={{ border: 'none', outline: 'none', background: 'transparent' }}><CiSearch size={23} color='blue' cursor='pointer' /></button>
@@ -98,7 +98,7 @@ const SearchBox = () => {
 
 
                 {isOpen &&
-                    <Box onClick={(e) => e.stopPropagation()} sx={{ background: 'white', display: 'flex', flexDirection: 'column', borderRadius: '10px', padding: '10px', transition: 'all', marginBottom: '4px', maxHeight: '80vh' }}>
+                    <Box onClick={(e) => e.stopPropagation()} sx={{position:'fixed', width:'25%',top:'135px',zIndex:'100' ,background: 'white', display: 'flex', flexDirection: 'column', borderRadius: '10px', transition: 'all', marginBottom: '4px', maxHeight: '75vh', overflowY:'auto', overflowX:'hidden' }}>
                         {/* <p onClick={() => setIsOpen(false)}>hiii</p> */}
 
                         {loading ? (

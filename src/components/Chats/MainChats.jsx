@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from 'react'
-import { Box, Button } from '@mui/material'
+import { Avatar, Box, Button, Paper, Typography } from '@mui/material'
 import SearchBox from '../search/SearchBox'
 import { ChatState } from '../../context/ChatProvider';
+
+import ChatLoading from '../loader/ChatLoading'
 
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 import { getCurrentUserDetails } from '../../auth';
+import { Grid } from 'react-loader-spinner';
+import { getSender, getSenderPic } from '../../config/chatLogics';
 
 
 const MainChats = () => {
@@ -44,22 +48,42 @@ const MainChats = () => {
 
 
 
+
+
   return (
     <>
       {/* <Box display='flex' flexDirection='column' gap='20px'> */}
 
-      <Box sx={{ display: { xs: selectedChat ? 'none' : 'flex', sm: 'flex' }, width: {xs: '100%', sm:'20%'}, flexDirection: 'column', alignItems: 'center', padding: '5px', background: 'white', borderRadius: '10px', border: '2px solid black', height: '88vh', marginTop:'5px', marginLeft:'5px' }}>
+      <Box sx={{ display: { xs: selectedChat ? 'none' : 'flex', sm: 'flex' }, width: { xs: '100%', sm: '25%' }, flexDirection: 'column', paddingX: '14px', paddingY: '5px', background: '#555', borderRadius: '10px', height: '88vh', marginTop: '5px', marginLeft: '5px' }}>
         <SearchBox />
 
-        <Box sx={{ paddingBottom: '4px', paddingX: '4px', fontSize: '18px', display: 'flex', width: '100%', justifyContent: 'space-between', alignItems: 'center' }}>
-          My Chats
+        <Box sx={{ color: 'white', paddingBottom: '4px', paddingX: '4px', fontSize: '18px', display: 'flex', width: '100%', justifyContent: 'space-between', alignItems: 'center' }}>
+          <Typography sx={{ fontSize: { xs: '20px', sm: '24px' } }}>My Chats</Typography>
 
-          <Button>New Group Chat</Button>
+          {/* <Button sx={{background:'gray', color:'white'}}>New Group Chat</Button> */}
         </Box>
 
-        {/* <Box>
-          hdghsd
-        </Box> */}
+
+
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: '5px', overflowY: 'auto', overflowX: 'hidden', height: '73vh' }}>
+          {
+            chats.map((chat) => (
+              <Paper onClick={() => setSelectedChat(chat)} key={chat._id} sx={{ background: selectedChat === chat ? 'gray' : 'transparent', color: selectedChat === chat ? '#222' : 'white', paddingX: '10px', paddingY: '5px', display: 'flex', alignItems: 'center', gap: '20px', cursor: 'pointer', }} elevation={2}>
+
+                <Avatar src={!chat.isGroupChat ? getSenderPic(loggedUser, chat.users) : ''} alt="Remy Sharp" />
+
+                <Box>
+                  {/* <Typography sx={{ fontSize: '15px' }}>{chat.chatName}</Typography>
+                  <Typography sx={{ fontSize: '15px' }}>hhgh</Typography> */}
+                  <Typography>
+                    {!chat.isGroupChat ? getSender(loggedUser, chat.users) : chat.chatName}
+                    {/* {console.log(getSender(loggedUser, chat.users))} */}
+                  </Typography>
+                </Box>
+              </Paper>
+            ))
+          }
+        </Box>
       </Box>
       {/* </Box> */}
     </>
