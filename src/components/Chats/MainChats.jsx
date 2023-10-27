@@ -64,9 +64,8 @@ const MainChats = () => {
           <Typography sx={{ fontSize: { xs: '20px', sm: '24px' } }}>My Chats</Typography>
 
           <Button onClick={() => setIsOpenSidebar(true)} sx={{background:'gray', color:'white'}}>New Group Chat</Button>
-          <GroupChatSidebar isOpenSidebar={isOpenSidebar} onClose={() => setIsOpenSidebar(false)}>
-            sgfgfgfjhfdjdgdhdf
-          </GroupChatSidebar>
+          <GroupChatSidebar isOpenSidebar={isOpenSidebar} onClose={() => setIsOpenSidebar(false)} />
+            
         </Box>
 
 

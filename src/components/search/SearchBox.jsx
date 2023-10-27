@@ -98,21 +98,18 @@ const SearchBox = () => {
 
 
                 {isOpen &&
-                    <Box onClick={(e) => e.stopPropagation()} sx={{position:'fixed', width:'25%',top:'135px',zIndex:'100' ,background: 'white', display: 'flex', flexDirection: 'column', borderRadius: '10px', transition: 'all', marginBottom: '4px', maxHeight: '75vh', overflowY:'auto', overflowX:'hidden' }}>
+                    <Box onClick={(e) => e.stopPropagation()} sx={{ position: 'fixed', width: '25%', top: '135px', zIndex: '100', background: 'white', display: 'flex', flexDirection: 'column', borderRadius: '10px', transition: 'all', marginBottom: '4px', maxHeight: '75vh', overflowY: 'auto', overflowX: 'hidden' }}>
                         {/* <p onClick={() => setIsOpen(false)}>hiii</p> */}
 
                         {loading ? (
                             <ChatLoading />
                         ) : (
                             searchResult.map((user) => (
-                                <Box>
-                                    {/* console.log(98, user) */}
-                                    <SearchUserList
-                                        key={user._id}
-                                        user={user}
-                                        handleFunction={() => accessChat(user._id)}
-                                    />
-                                </Box>
+                                <SearchUserList
+                                    key={user._id}
+                                    user={user}
+                                    handleFunction={() => accessChat(user._id)}
+                                />
                             ))
                         )}
                         {loadingChat && <Loader />}
