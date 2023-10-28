@@ -50,8 +50,31 @@ const GroupChatSidebar = ({ isOpenSidebar, onClose }) => {
     }
 
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
+        console.log(groupChatName, selectedUsers)
+        if(!groupChatName || !selectedUsers){
+            toast.error('Please fill all the fields')
+        }
 
+        try {
+            const config = {
+                headers: {
+                    Authorization: `Bearer ${user.token}`
+                }
+            };
+
+            const { data } = await axios.post(`http://localhost:8000/api/chat/group`, {
+                name: groupChatName,
+                users: JSON.stringify(selectedUsers.map((user) => user._id))
+            }, config)
+
+            setChats(data, ...chats);
+            // console.log(chats)
+            onClose()
+            toast.error('Group Chat Created')
+        } catch (error) {
+            toast.error('Failed to Create Group Chat')
+        }
     }
 
 
