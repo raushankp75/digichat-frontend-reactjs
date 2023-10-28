@@ -73,7 +73,8 @@ const GroupChatSidebar = ({ isOpenSidebar, onClose }) => {
             onClose()
             toast.error('Group Chat Created')
         } catch (error) {
-            toast.error('Failed to Create Group Chat')
+            // console.log(error)
+            toast.error(error.response.data)
         }
     }
 

@@ -50,7 +50,7 @@ export default function Header() {
     return (
         <Box sx={{ flexGrow: 1 }}>
             <AppBar elevation={0} position="static" sx={{
-                background: '#808080',
+                background: '#097969',
                 padding: {
                     xs: '0px 5px', // 0 above
                     sm: '0px 5px', // 600 above

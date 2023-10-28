@@ -10,11 +10,11 @@ import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 import { getCurrentUserDetails } from '../../auth';
 import { Grid } from 'react-loader-spinner';
-import { getSender, getSenderPic } from '../../config/chatLogics';
+import { getSenderName, getSenderPic } from '../../config/chatLogics';
 import GroupChatSidebar from '../groupchats/GroupChatSidebar';
 
 
-const MainChats = () => {
+const MainChats = ({fetchChatsAgain}) => {
 
   let [isOpenSidebar, setIsOpenSidebar] = useState(false)
 
@@ -47,7 +47,7 @@ const MainChats = () => {
   useEffect(() => {
     setLoggedUser(getCurrentUserDetails());
     fetchChats();
-  }, []);
+  }, [fetchChatsAgain]);
 
 
 
@@ -57,7 +57,7 @@ const MainChats = () => {
     <>
       {/* <Box display='flex' flexDirection='column' gap='20px'> */}
 
-      <Box sx={{ display: { xs: selectedChat ? 'none' : 'flex', sm: 'flex' }, width: { xs: '100%', sm: '25%' }, flexDirection: 'column', paddingX: '14px', paddingY: '5px', background: '#555', borderRadius: '10px', height: '88vh', marginTop: '5px', marginLeft: '5px' }}>
+      <Box sx={{ display: { xs: selectedChat ? 'none' : 'flex', sm: 'flex' }, width: { xs: '100%', sm: '25%' }, flexDirection: 'column', paddingX: '14px', paddingY: '5px', background: '#222', borderRadius: '10px' }}>
         <SearchBox />
 
         <Box sx={{ color: 'white', paddingBottom: '4px', paddingX: '4px', fontSize: '18px', display: 'flex', width: '100%', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -77,7 +77,7 @@ const MainChats = () => {
                 <Avatar src={!chat.isGroupChat ? getSenderPic(loggedUser, chat.users) : ''} alt="Remy Sharp" />
                 <Box>
                   <Typography>
-                    {!chat.isGroupChat ? getSender(loggedUser, chat.users) : chat.chatName}
+                    {!chat.isGroupChat ? getSenderName(loggedUser, chat.users) : chat.chatName}
                     {/* {console.log(getSender(loggedUser, chat.users))} */}
                   </Typography>
                 </Box>

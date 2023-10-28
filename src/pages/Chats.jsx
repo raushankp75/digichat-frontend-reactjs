@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { ChatState } from '../context/ChatProvider'
 import MainChats from '../components/Chats/MainChats';
 import ChatBox from '../components/Chats/ChatBox';
@@ -9,15 +9,12 @@ const Chats = () => {
 
   const { user } = ChatState();
   // console.log("User Details", user)
+  const [fetchChatsAgain, setFetchChatsAgain] = useState(false)
 
   return (
-    <Box>
-      <Header />
-      
-      <Box display='flex' justifyContent='space-between'>
-        {user && <MainChats />}
-        {user && <ChatBox />}
-      </Box>
+    <Box display='flex' justifyContent='space-between' gap='10px'>
+      {user && (<MainChats fetchChatsAgain={fetchChatsAgain} />)}
+      {user && (<ChatBox fetchChatsAgain={fetchChatsAgain}  setFetchChatsAgain={setFetchChatsAgain} />)}
     </Box>
   )
 }
