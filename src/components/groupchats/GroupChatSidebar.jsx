@@ -68,10 +68,10 @@ const GroupChatSidebar = ({ isOpenSidebar, onClose }) => {
                 users: JSON.stringify(selectedUsers.map((user) => user._id))
             }, config)
 
-            setChats(data, ...chats);
+            setChats([data, ...chats]);
             // console.log(chats)
             onClose()
-            toast.error('Group Chat Created')
+            toast.success('Group Chat Created')
         } catch (error) {
             // console.log(error)
             toast.error(error.response.data)

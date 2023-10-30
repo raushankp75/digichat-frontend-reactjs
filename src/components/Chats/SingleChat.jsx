@@ -6,13 +6,17 @@ import { getSenderEmail, getSenderName, getSenderPic } from '../../config/chatLo
 import ProfileModal from '../ProfileModal'
 
 import { CgProfile } from 'react-icons/cg'
+import UpdateGroupChatSidebar from '../groupchats/UpdateGroupChatSidebar'
 
 
 const SingleChat = ({ fetchChatsAgain, setFetchChatsAgain }) => {
 
     // for profile modal
     let [profilePopupModal, setProfilePopupModal] = useState(false)
-    
+
+    // for update group sidebar
+    let [isOpenSidebar, setIsOpenSidebar] = useState(false)
+
     const { user, selectedChat, setSelectedChat } = ChatState()
 
 
@@ -20,7 +24,8 @@ const SingleChat = ({ fetchChatsAgain, setFetchChatsAgain }) => {
         <>
             {selectedChat ? (
                 <>
-                    <Box sx={{ fontSize: { xs: '22px', sm: '30px' }, paddingX: '5px', paddingY: '8px', width: '100%', display: 'flex', justifyContent: { xs: 'space-between' }, alignItems: 'center', borderBottom: '2px solid #555' }}>
+                    {/* header */}
+                    <Box sx={{ fontSize: { xs: '22px', sm: '30px' }, paddingX: '5px', paddingY: '8px', width: '100%', display: 'flex', justifyContent: { xs: 'space-between' }, alignItems: 'center' }}>
                         <Typography sx={{ display: { xs: 'flex', sm: 'none' } }} onClick={() => setSelectedChat('')}><BsArrowLeftShort color='white' size={30} /></Typography>
 
                         {!selectedChat.isGroupChat ? (
@@ -30,7 +35,7 @@ const SingleChat = ({ fetchChatsAgain, setFetchChatsAgain }) => {
                                     <Typography>{getSenderName(user, selectedChat.users)}</Typography>
                                 </Box>
 
-                                {/* <ProfileModal user={getSenderAllDetails(user, selectedChat.users)} /> */}
+                                {/* Profile Modal */}
                                 <Button onClick={() => setProfilePopupModal(true)}><CgProfile size={30} /></Button>
 
                                 <ProfileModal profilePopupModal={profilePopupModal} onClose={() => setProfilePopupModal(false)}>
@@ -47,11 +52,25 @@ const SingleChat = ({ fetchChatsAgain, setFetchChatsAgain }) => {
                                 </ProfileModal>
                             </>
                         ) : (
-                            <Box sx={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
-                                <Avatar src="" alt="Remy Sharp" />
-                                <Typography>{selectedChat.chatName.toUpperCase()}</Typography>
-                            </Box>
+                            <>
+                                <Box sx={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+                                    <Avatar src="" alt="Remy Sharp" />
+                                    <Typography>{selectedChat.chatName.toUpperCase()}</Typography>
+                                </Box>
+
+                                {/* Update Group Chat Sidebar */}
+                                <Button onClick={() => setIsOpenSidebar(true)}><CgProfile size={30} /></Button>
+
+                                <UpdateGroupChatSidebar isOpenSidebar={isOpenSidebar} onClose={() => setIsOpenSidebar(false)} fetchChatsAgain={fetchChatsAgain} setFetchChatsAgain={setFetchChatsAgain} />
+                            </>
+
                         )}
+                    </Box>
+
+                    {/* chat screen */}
+                    {/* background:'#E8E8E8' */}
+                    <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', padding: '10px', background: '#333', width: '100%', height: '100%', borderRadius: '5px', overflowY: 'hidden' }}>
+
                     </Box>
                 </>
             ) : (
