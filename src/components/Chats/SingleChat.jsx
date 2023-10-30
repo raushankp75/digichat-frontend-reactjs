@@ -15,12 +15,23 @@ import axios from 'axios'
 import AllMessagesList from './messages/AllMessagesList'
 
 
+import { io } from 'socket.io-client'
+
+
+// for socket.io
+const ENDPOINT = "http://localhost:8000";
+var socket, selectedChatCompare;
+
+
 const SingleChat = ({ fetchChatsAgain, setFetchChatsAgain }) => {
 
     // for message conversation
     const [messages, setMessages] = useState([])
     const [loading, setLoading] = useState(false)
     const [newMessage, setNewMessage] = useState('')
+
+    // for socket.io
+    const [socketConnected, setSocketConnected] = useState(false)
 
     // for profile modal
     let [profilePopupModal, setProfilePopupModal] = useState(false)
@@ -55,8 +66,10 @@ const SingleChat = ({ fetchChatsAgain, setFetchChatsAgain }) => {
             const { data } = await axios.get(`http://localhost:8000/api/message/${selectedChat._id}`, config)
 
             setMessages(data)
-            // console.log(messages)
             setLoading(false)
+
+            // for socket.io
+            socket.emit('join chat', selectedChat._id)
         } catch (error) {
             console.log(error)
             toast.error('Error While Fetching Messages')
@@ -64,9 +77,37 @@ const SingleChat = ({ fetchChatsAgain, setFetchChatsAgain }) => {
         }
     }
 
+    // for socket.io
+    useEffect(()=> {
+        socket = io(ENDPOINT)
+        socket.emit('setup', user.user)
+        socket.on('connection', () => {
+            setSocketConnected(true)
+        })
+    }, [])
+
+
     useEffect(() => {
         fetchAllMessages()
+
+        // for socket.io
+        selectedChatCompare = selectedChat;
     }, [selectedChat])
+
+
+    // for socket.io
+    useEffect(() => {
+        socket.on("message recieved", (newMessageRecieved) => {
+            if(!selectedChatCompare || selectedChatCompare._id !== newMessageRecieved.chat._id){
+                // notification
+            } else{
+                setMessages([...messages, newMessageRecieved])
+            }
+        })
+    })
+
+
+    
 
 
     const SendMessage = async (e) => {
@@ -86,9 +127,11 @@ const SingleChat = ({ fetchChatsAgain, setFetchChatsAgain }) => {
                 chatId: selectedChat._id
             }, config)
 
+            // for socket.io
+            socket.emit('new message', data)
             setMessages([...messages, data])
             console.log(messages)
-            toast.success('Send Message')
+            // toast.success('Send Message')
         } catch (error) {
             console.log(error)
             toast.error('Error While Sending Message')
