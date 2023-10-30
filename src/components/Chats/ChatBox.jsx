@@ -10,7 +10,7 @@ const ChatBox = ({fetchChatsAgain, setFetchChatsAgain}) => {
 
 
   return (
-    <Box sx={{display: { xs: selectedChat ? 'flex' : 'none', sm: 'flex' }, width: { xs: '100%', sm: '72%' }, flexDirection: 'column', alignItems:'center', paddingX: '14px', paddingY: '5px', background: '#222', borderRadius: '10px', color:'white'}}>
+    <Box sx={{display: { xs: selectedChat ? 'flex' : 'none', sm: 'flex' }, width: { xs: '100%', sm: '72%' }, flexDirection: 'column', alignItems:'center', paddingX: '14px', paddingY: '5px', background: '#222', borderRadius: '10px', color:'white', maxWidth: '100%', minHeight: '87vh', maxHeight:'87vh'}}>
        
       <SingleChat fetchChatsAgain={fetchChatsAgain} setFetchChatsAgain={setFetchChatsAgain} />
     </Box>

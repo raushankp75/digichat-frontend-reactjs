@@ -8,7 +8,7 @@ const Loader = () => {
 
     return (
         // <Box display="flex" justifyContent="center" alignItems="center" minHeight="85vh" minWidth="100%" position="relative">
-        <Box display="flex" justifyContent="center" alignItems="center">
+        <Box display="flex" justifyContent="center" alignItems="center" height='100%' width='100%'>
             <TailSpin
                 height="50"
                 width="50"

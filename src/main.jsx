@@ -6,9 +6,9 @@ import { BrowserRouter } from 'react-router-dom'
 import ChatProvider from './context/ChatProvider'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <ChatProvider>
-    <BrowserRouter>
+  <BrowserRouter>
+    <ChatProvider>
       <App />
-    </BrowserRouter>
-  </ChatProvider>,
+    </ChatProvider>
+  </BrowserRouter>,
 )

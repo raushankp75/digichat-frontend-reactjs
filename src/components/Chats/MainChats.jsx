@@ -57,7 +57,7 @@ const MainChats = ({fetchChatsAgain}) => {
     <>
       {/* <Box display='flex' flexDirection='column' gap='20px'> */}
 
-      <Box sx={{ display: { xs: selectedChat ? 'none' : 'flex', sm: 'flex' }, width: { xs: '100%', sm: '25%' }, flexDirection: 'column', paddingX: '14px', paddingY: '5px', background: '#222', borderRadius: '10px' }}>
+      <Box sx={{ display: { xs: selectedChat ? 'none' : 'flex', sm: 'flex' }, width: { xs: '100%', sm: '25%' }, flexDirection: 'column', paddingX: '14px', paddingY: '5px', background: '#222', borderRadius: '10px', maxWidth: '100%', maxHeight: '87vh', minHeight: '87vh' }}>
         <SearchBox />
 
         <Box sx={{ color: 'white', paddingBottom: '4px', paddingX: '4px', fontSize: '18px', display: 'flex', width: '100%', justifyContent: 'space-between', alignItems: 'center' }}>

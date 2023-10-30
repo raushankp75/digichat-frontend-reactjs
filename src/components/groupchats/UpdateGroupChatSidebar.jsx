@@ -13,7 +13,7 @@ import Loader from '../Loader/Loader';
 
 
 
-const UpdateGroupChatSidebar = ({ isOpenSidebar, onClose, fetchChatsAgain, setFetchChatsAgain }) => {
+const UpdateGroupChatSidebar = ({ isOpenSidebar, onClose, fetchChatsAgain, setFetchChatsAgain, fetchAllMessages }) => {
 
     const [groupChatName, setGroupChatName] = useState()
     const [search, setSearch] = useState("")
@@ -154,6 +154,8 @@ const UpdateGroupChatSidebar = ({ isOpenSidebar, onClose, fetchChatsAgain, setFe
 
             existUser._id === user.user._id ? setSelectedChat() : setSelectedChat(data)
             setFetchChatsAgain(!fetchChatsAgain)
+            // refresh all messages again
+            fetchAllMessages()
             setRemoveUserLoading(false)
             // onClose()
             // toast.error('User Updated')
