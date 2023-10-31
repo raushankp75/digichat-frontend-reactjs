@@ -18,10 +18,10 @@ const SearchBox = () => {
     const { user, setSelectedChat, chats, setChats } = ChatState();
     // console.log("User Details from mainchats", user)
 
-    const [search, setSearch] = React.useState("");
-    const [searchResult, setSearchResult] = React.useState([]);
-    const [loading, setLoading] = React.useState(false);
-    const [loadingChat, setLoadingChat] = React.useState();
+    const [search, setSearch] = useState("");
+    const [searchResult, setSearchResult] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [loadingChat, setLoadingChat] = useState(false);
 
     let [isOpen, setIsOpen] = useState(false)
 
@@ -48,9 +48,8 @@ const SearchBox = () => {
             setSearchResult(data);
             // console.log("75", searchResult);
             setLoading(false);
-        } catch {
+        } catch(error) {
             toast.error('Failed to load the search results')
-            setLoading(true);
         }
     }
 

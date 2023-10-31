@@ -14,6 +14,9 @@ import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios'
 import AllMessagesList from './messages/AllMessagesList'
 
+import Lottie from 'lottie-react'
+import TypingAnimation from '../typingAnimation.json'
+
 
 import { io } from 'socket.io-client'
 
@@ -33,6 +36,10 @@ const SingleChat = ({ fetchChatsAgain, setFetchChatsAgain }) => {
     // for socket.io
     const [socketConnected, setSocketConnected] = useState(false)
 
+    // for typing indicator
+    const [typing, setTyping] = useState(false)
+    const [isTyping, setIsTyping] = useState(false)
+
     // for profile modal
     let [profilePopupModal, setProfilePopupModal] = useState(false)
 
@@ -46,6 +53,31 @@ const SingleChat = ({ fetchChatsAgain, setFetchChatsAgain }) => {
 
     const typingChangeHandle = (e) => {
         setNewMessage(e.target.value)
+
+        // typing indicator
+        if (!socketConnected) {
+            return
+        }
+
+        if (!typing) {
+            setTyping(true)
+            socket.emit('typing', selectedChat._id)
+        }
+
+        // here write debouncing function to decide when we stop typing 
+        let lastTypingTime = new Date().getTime()
+        var timerLength = 3000
+        console.log('here')
+        setTimeout(() => {
+            var timeNow = new Date().getTime()
+            var timeDifference = timeNow - lastTypingTime
+
+            if (timeDifference >= timerLength && typing) {
+                socket.emit('stop typing', selectedChat._id)
+                setTyping(false)
+            }
+        }, timerLength)
+
     }
 
 
@@ -78,11 +110,17 @@ const SingleChat = ({ fetchChatsAgain, setFetchChatsAgain }) => {
     }
 
     // for socket.io
-    useEffect(()=> {
+    useEffect(() => {
         socket = io(ENDPOINT)
         socket.emit('setup', user.user)
-        socket.on('connection', () => {
+        socket.on('connected', () => {
             setSocketConnected(true)
+        })
+        socket.on('typing', () => {
+            setIsTyping(true)
+        })
+        socket.on('stop typing', () => {
+            setIsTyping(false)
         })
     }, [])
 
@@ -98,21 +136,24 @@ const SingleChat = ({ fetchChatsAgain, setFetchChatsAgain }) => {
     // for socket.io
     useEffect(() => {
         socket.on("message recieved", (newMessageRecieved) => {
-            if(!selectedChatCompare || selectedChatCompare._id !== newMessageRecieved.chat._id){
+            if (!selectedChatCompare || selectedChatCompare._id !== newMessageRecieved.chat._id) {
                 // notification
-            } else{
+            } else {
                 setMessages([...messages, newMessageRecieved])
             }
         })
     })
 
 
-    
+
 
 
     const SendMessage = async (e) => {
         e.preventDefault()
         // if (e.key === "Enter" && newMessage) {
+
+        // for socket.io
+        socket.emit('stop typing', selectedChat._id)
         try {
             setNewMessage("")
             const config = {
@@ -203,6 +244,16 @@ const SingleChat = ({ fetchChatsAgain, setFetchChatsAgain }) => {
                             </Box>
                         )}
 
+                        {isTyping ? (
+                            <Box>
+                                <Lottie 
+                                loop={true} 
+                                autoPlay={true} 
+                                animationData={TypingAnimation} 
+                                rendererSettings={SVGAnimatedPreserveAspectRatio} 
+                                style={{ width:'80px' }} />
+                            </Box>
+                        ) : (<></>)}
 
                         <form onSubmit={SendMessage} style={{ display: 'flex', gap: '10px', marginTop: '8px' }}>
                             <input type="text" value={newMessage} onChange={typingChangeHandle} required placeholder='Write something here... ' style={{ backgroundColor: '#444', border: 'none', outline: 'none', fontSize: '1rem', padding: '10px 15px', boxShadow: '0px 0px 5px 1px rgba(0,0,0,0.2)', width: '100%', color: 'white' }} />

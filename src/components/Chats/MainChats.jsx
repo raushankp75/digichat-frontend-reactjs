@@ -45,9 +45,12 @@ const MainChats = ({fetchChatsAgain}) => {
 
 
   useEffect(() => {
-    setLoggedUser(getCurrentUserDetails());
+    // setLoggedUser(getCurrentUserDetails());
+    setLoggedUser(JSON.parse(localStorage.getItem("loggedInData")));
     fetchChats();
   }, [fetchChatsAgain]);
+
+  // console.log(loggedUser.user._id)
 
 
 
@@ -71,7 +74,7 @@ const MainChats = ({fetchChatsAgain}) => {
 
 
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: '5px', overflowY: 'auto', overflowX: 'hidden', height: '73vh' }}>
-          { chats &&
+          {
             chats.map((chat) => (
               <Paper onClick={() => setSelectedChat(chat)} key={chat._id} sx={{ background: selectedChat === chat ? 'gray' : 'transparent', color: selectedChat === chat ? '#222' : 'white', paddingX: '10px', paddingY: '5px', display: 'flex', alignItems: 'center', gap: '20px', cursor: 'pointer', }} elevation={2}>
                 <Avatar src={!chat.isGroupChat ? getSenderPic(loggedUser, chat.users) : ''} alt="Remy Sharp" />

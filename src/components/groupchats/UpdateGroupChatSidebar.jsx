@@ -52,7 +52,6 @@ const UpdateGroupChatSidebar = ({ isOpenSidebar, onClose, fetchChatsAgain, setFe
             setLoading(false);
         } catch (error) {
             toast.error('Failed to load the search results')
-            setLoading(true);
         }
     }
 
