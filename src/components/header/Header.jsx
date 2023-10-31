@@ -11,6 +11,7 @@ import { ChatState } from '../../context/ChatProvider';
 import ProfileModal from '../ProfileModal';
 import { doLogout, isAuthenticated } from '../../auth';
 import { useNavigate } from 'react-router-dom';
+import { getSenderName } from '../../config/chatLogics';
 // import MenuIcon from '@mui/icons-material/Menu';
 
 
@@ -35,11 +36,15 @@ export default function Header() {
 
     // for open notification
     const handleNotificationOpen = (e) => setNotificationOpen(e.currentTarget);
-    const handleNotificationClose = () => setNotificationOpen(false)
+    const handleNotificationClose = (noti) => {
+        setSelectedChat(noti.chat)
+        setNotification(notification.filter((n) => n !== noti))
+        setNotificationOpen(false)
+    }
 
 
     // user details
-    const { user } = ChatState()
+    const { user, notification, setNotification, setSelectedChat } = ChatState()
     // console.log(user, 43)
 
 
@@ -89,12 +94,30 @@ export default function Header() {
                             color="inherit"
                             onClick={handleNotificationOpen}
                         >
-                            <Badge badgeContent={12} color="error">
+                            <Badge badgeContent={notification.length} color="primary">
                                 <IoIosNotifications />
                             </Badge>
                         </IconButton>
                         <Menu open={Boolean(notificationOpen)} onClose={handleNotificationClose} anchorEl={notificationOpen}>
-                            <MenuItem onClick={handleNotificationClose}>First</MenuItem>
+
+
+                            {!notification.length ? (
+                                <MenuItem onClick={handleNotificationClose}>
+                                    <Typography>No New Messages</Typography>
+                                </MenuItem>
+                            ) : (
+                                notification.map((noti) => (
+                                    <MenuItem key={noti._id} onClick={() => handleNotificationClose(noti)}>
+                                        {noti.chat.isGroupChat ?
+                                            <Typography>New Message in <span style={{fontWeight:'600', color:'blue'}}>{noti.chat.chatName}</span></Typography>
+                                            :
+                                            <Typography>New Message from <span style={{fontWeight:'600', color:'blue'}}>{getSenderName(user, noti.chat.users)}</span></Typography>
+                                        }
+                                    </MenuItem>
+                                ))
+                            )
+                            }
+
                         </Menu>
 
                         {/* profile and logout menu */}
@@ -115,7 +138,7 @@ export default function Header() {
                         {/* profile modal */}
                         {/* {profilePopupModal && <ProfileModal user={user} setProfilePopupModal={setProfilePopupModal} />} */}
                         <ProfileModal profilePopupModal={profilePopupModal} onClose={() => setProfilePopupModal(false)}>
-                            <Box sx={{ textAlign: 'center', width: '256px', color: 'black', display:'flex', flexDirection:'column', alignItems:'center', gap:'10px' }}>
+                            <Box sx={{ textAlign: 'center', width: '256px', color: 'black', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px' }}>
                                 <CardMedia
                                     component='img'
                                     image={user?.user?.pic}

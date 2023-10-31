@@ -46,7 +46,7 @@ const SingleChat = ({ fetchChatsAgain, setFetchChatsAgain }) => {
     // for update group sidebar
     let [isOpenSidebar, setIsOpenSidebar] = useState(false)
 
-    const { user, selectedChat, setSelectedChat } = ChatState()
+    const { user, selectedChat, setSelectedChat, notification, setNotification } = ChatState()
 
     // console.log(selectedChat._id, 32)
 
@@ -138,12 +138,17 @@ const SingleChat = ({ fetchChatsAgain, setFetchChatsAgain }) => {
         socket.on("message recieved", (newMessageRecieved) => {
             if (!selectedChatCompare || selectedChatCompare._id !== newMessageRecieved.chat._id) {
                 // notification
+                if(!notification.includes(newMessageRecieved)){
+                    setNotification([newMessageRecieved, ...notification])
+                    setFetchChatsAgain(!fetchChatsAgain)
+                }
             } else {
                 setMessages([...messages, newMessageRecieved])
             }
         })
     })
 
+    console.log(notification, 151)
 
 
 
