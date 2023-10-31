@@ -193,7 +193,6 @@ const SingleChat = ({ fetchChatsAgain, setFetchChatsAgain }) => {
         <>
             {selectedChat ? (
                 <>
-                    {/* header */}
                     <Box sx={{ fontSize: { xs: '22px', sm: '30px' }, paddingX: '5px', paddingY: '8px', width: '100%', display: 'flex', justifyContent: { xs: 'space-between' }, alignItems: 'center' }}>
                         <Typography sx={{ display: { xs: 'flex', sm: 'none' } }} onClick={() => setSelectedChat('')}><BsArrowLeftShort color='white' size={30} /></Typography>
 
@@ -238,7 +237,7 @@ const SingleChat = ({ fetchChatsAgain, setFetchChatsAgain }) => {
 
                     {/* chat screen */}
                     {/* background:'#E8E8E8' */}
-                    <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', padding: '10px', background: '#333', width: '100%', height: '100%', borderRadius: '5px', overflowY: 'hidden' }}>
+                    <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', padding: '10px', background: '#333', width: '100%', height: '100%', overflowY: 'hidden' }}>
                         {/* // Messages List */}
                         {loading ? (
                             <Loader />

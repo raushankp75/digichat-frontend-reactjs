@@ -12,11 +12,10 @@ import { getCurrentUserDetails } from '../../auth';
 import { Grid } from 'react-loader-spinner';
 import { getSenderName, getSenderPic } from '../../config/chatLogics';
 import GroupChatSidebar from '../groupchats/GroupChatSidebar';
+import Header from '../header/Header';
 
 
-const MainChats = ({fetchChatsAgain}) => {
-
-  let [isOpenSidebar, setIsOpenSidebar] = useState(false)
+const MainChats = ({ fetchChatsAgain }) => {
 
   const [loggedUser, setLoggedUser] = useState();
 
@@ -60,15 +59,12 @@ const MainChats = ({fetchChatsAgain}) => {
     <>
       {/* <Box display='flex' flexDirection='column' gap='20px'> */}
 
-      <Box sx={{ display: { xs: selectedChat ? 'none' : 'flex', sm: 'flex' }, width: { xs: '100%', sm: '25%' }, flexDirection: 'column', paddingX: '14px', paddingY: '5px', background: '#222', borderRadius: '10px', maxWidth: '100%', maxHeight: '87vh', minHeight: '87vh' }}>
+      <Box sx={{ display: { xs: selectedChat ? 'none' : 'flex', sm: 'flex' }, width: { xs: '100%', sm: '30%' }, flexDirection: 'column', background: '#222', maxWidth: '100%', maxHeight: '100vh', minHeight: '100vh' }}>
+        <Header />
         <SearchBox />
 
         <Box sx={{ color: 'white', paddingBottom: '4px', paddingX: '4px', fontSize: '18px', display: 'flex', width: '100%', justifyContent: 'space-between', alignItems: 'center' }}>
-          <Typography sx={{ fontSize: { xs: '20px', sm: '24px' } }}>My Chats</Typography>
-
-          <Button onClick={() => setIsOpenSidebar(true)} sx={{background:'gray', color:'white'}}>New Group Chat</Button>
-          <GroupChatSidebar isOpenSidebar={isOpenSidebar} onClose={() => setIsOpenSidebar(false)} />
-            
+          <Typography sx={{ fontSize: { xs: '20px', sm: '20px' } }}>Chats</Typography>
         </Box>
 
 

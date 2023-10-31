@@ -5,8 +5,8 @@ import Header from '../components/header/Header'
 const MainLayout = ({ children }) => {
     return (
         <>
-            <Header />
-            <Box sx={{ display: 'flex', flexDirection: 'column', overflow: 'hidden', margin: '10px' }}>
+            {/* <Header /> */}
+            <Box sx={{ display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
                 {children}
             </Box>
         </>
