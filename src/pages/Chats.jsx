@@ -12,9 +12,9 @@ const Chats = () => {
   const [fetchChatsAgain, setFetchChatsAgain] = useState(false)
 
   return (
-    <Box display='flex' justifyContent='space-between' gap='10px'>
-      {user && (<MainChats fetchChatsAgain={fetchChatsAgain} />)}
-      {user && (<ChatBox fetchChatsAgain={fetchChatsAgain}  setFetchChatsAgain={setFetchChatsAgain} />)}
+    <Box sx={{display:'flex', height:{xs:'100vh', sm:'91vh'}, width:{xs:'100%', sm:'96%'}, padding:{xs:'0', sm:'30px'}}}>
+        {user && (<MainChats fetchChatsAgain={fetchChatsAgain} />)}
+        {user && (<ChatBox fetchChatsAgain={fetchChatsAgain} setFetchChatsAgain={setFetchChatsAgain} />)}
     </Box>
   )
 }

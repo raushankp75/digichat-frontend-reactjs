@@ -12,6 +12,7 @@ const AllMessagesList = ({ messages }) => {
 
     return (
         <ScrollableFeed>
+            <Typography sx={{display:'flex', justifyContent:'center', alignItems:'center', height:'50%', color:'white', fontSize:'18px'}}>Write Something To Start Chatting</Typography>
             {messages && messages.map((message, index) => (
                 <Box key={message._id} sx={{ display: 'flex' }}>
                     {

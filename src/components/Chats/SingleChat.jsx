@@ -138,7 +138,7 @@ const SingleChat = ({ fetchChatsAgain, setFetchChatsAgain }) => {
         socket.on("message recieved", (newMessageRecieved) => {
             if (!selectedChatCompare || selectedChatCompare._id !== newMessageRecieved.chat._id) {
                 // notification
-                if(!notification.includes(newMessageRecieved)){
+                if (!notification.includes(newMessageRecieved)) {
                     setNotification([newMessageRecieved, ...notification])
                     setFetchChatsAgain(!fetchChatsAgain)
                 }
@@ -193,15 +193,17 @@ const SingleChat = ({ fetchChatsAgain, setFetchChatsAgain }) => {
         <>
             {selectedChat ? (
                 <>
-                    <Box sx={{ fontSize: { xs: '22px', sm: '30px' }, paddingX: '5px', paddingY: '8px', width: '100%', display: 'flex', justifyContent: { xs: 'space-between' }, alignItems: 'center' }}>
-                        <Typography sx={{ display: { xs: 'flex', sm: 'none' } }} onClick={() => setSelectedChat('')}><BsArrowLeftShort color='white' size={30} /></Typography>
-
+                    <Box sx={{ fontSize: { xs: '22px', sm: '30px' }, paddingX: '5px', paddingY: '11px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: '#097969', color:'white' }}>
                         {!selectedChat.isGroupChat ? (
                             <>
-                                <Box sx={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
-                                    <Avatar src={getSenderPic(user, selectedChat.users)} alt="Remy Sharp" />
-                                    <Typography>{getSenderName(user, selectedChat.users)}</Typography>
+                                <Box sx={{display:'flex', alignItems:'center'}}>
+                                    <Typography sx={{ display: { xs: 'flex', sm: 'none' } }} onClick={() => setSelectedChat('')}><BsArrowLeftShort color='white' size={30} /></Typography>
+                                    <Box sx={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+                                        <Avatar src={getSenderPic(user, selectedChat.users)} alt="Remy Sharp" />
+                                        <Typography sx={{fontSize:'20px', fontWeight:'600'}}>{getSenderName(user, selectedChat.users)}</Typography>
+                                    </Box>
                                 </Box>
+
 
                                 {/* Profile Modal */}
                                 <Button onClick={() => setProfilePopupModal(true)}><CgProfile size={30} /></Button>
@@ -237,25 +239,26 @@ const SingleChat = ({ fetchChatsAgain, setFetchChatsAgain }) => {
 
                     {/* chat screen */}
                     {/* background:'#E8E8E8' */}
-                    <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', padding: '10px', background: '#333', width: '100%', height: '100%', overflowY: 'hidden' }}>
+                    <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', padding: '10px', background: '#333', overflowY: 'hidden', height:'100%' }}>
                         {/* // Messages List */}
                         {loading ? (
                             <Loader />
                         ) : (
-
+                            <>
                             <Box sx={{ display: 'flex', flexDirection: 'column', overflowY: 'auto', overflowX: 'none' }}>
                                 <AllMessagesList messages={messages} />
                             </Box>
+                            </>
                         )}
 
                         {isTyping ? (
                             <Box>
-                                <Lottie 
-                                loop={true} 
-                                autoPlay={true} 
-                                animationData={TypingAnimation} 
-                                rendererSettings={SVGAnimatedPreserveAspectRatio} 
-                                style={{ width:'80px' }} />
+                                <Lottie
+                                    loop={true}
+                                    autoPlay={true}
+                                    animationData={TypingAnimation}
+                                    rendererSettings={SVGAnimatedPreserveAspectRatio}
+                                    style={{ width: '80px' }} />
                             </Box>
                         ) : (<></>)}
 
@@ -267,7 +270,7 @@ const SingleChat = ({ fetchChatsAgain, setFetchChatsAgain }) => {
                     </Box>
                 </>
             ) : (
-                <Typography sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%', fontSize: { xs: '16px', sm: '28px' } }}>Clik on a user to start chatting</Typography>
+                <Typography sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%', fontSize: { xs: '16px', sm: '28px', background:'#222', color:'white' } }}>Clik on a user to start chatting</Typography>
             )}
         </>
     )
