@@ -171,12 +171,12 @@ const UpdateGroupChatSidebar = ({ isOpenSidebar, onClose, fetchChatsAgain, setFe
     return (
         <Box onClick={onClose} sx={{ position: 'fixed', inset: '0', transition: 'colors', zIndex: '100', visibility: isOpenSidebar ? 'visible' : 'hidden' }}>
             {/*Sidebar */}
-            <Box onClick={(e) => e.stopPropagation()} sx={{ width: { xs: '95%', sm: '350px' }, display: 'flex', flexDirection: 'column', height: '100vh', background: 'white', color: 'black', position: 'absolute', overflowX: 'hidden', overflowY: 'auto', boxShadow: '0px 0px 30px 2px rgba(0,0,0,0.2)', padding: '10px', transition: 'all 4s linear', transitionDuration: '0.5s', left: isOpenSidebar ? '0' : '-300px' }}>
+            <Box onClick={(e) => e.stopPropagation()} sx={{ width: { xs: '95%', sm: '449px' }, display: 'flex', flexDirection: 'column', height: '100vh', background: 'white', color: 'black', position: 'absolute', overflowX: 'hidden', overflowY: 'auto', boxShadow: '0px 0px 30px 2px rgba(0,0,0,0.2)', padding: '10px', transition: 'all 4s linear', transitionDuration: '0.5s', left: isOpenSidebar ? '0' : '-449px' }}>
                 <button onClick={onClose} style={{ width: 'fixed', alignSelf: 'end', background: 'transparent', outline: 'none', border: 'none', cursor: 'pointer', marginBottom: '10px' }}><RxCross2 size={30} /></button>
 
-                <Typography textAlign='center' fontSize='25px'>{selectedChat.chatName}</Typography>
+                <Typography fontSize='30px' marginBottom='20px'>{selectedChat.chatName}</Typography>
 
-                <Box sx={{ width: '100%', display: 'flex', flexWrap: 'wrap', gap: '5px', fontSize: '14px' }}>
+                <Box sx={{ width: '100%', display: 'flex', flexWrap: 'wrap', gap: '5px', fontSize: '14px', marginBottom:'10px' }}>
                     {selectedChat.users.map((user) => (
                         <UserBadge key={user._id} user={user} handleFunction={() => handleRemoveUser(user)} />
                     ))}
@@ -185,13 +185,13 @@ const UpdateGroupChatSidebar = ({ isOpenSidebar, onClose, fetchChatsAgain, setFe
 
                 <Paper elevation={2} sx={{ display: 'flex', flexDirection: 'column', gap: '10px', padding: '10px' }}>
                     <form style={{ display: 'flex', gap: '10px' }}>
-                        <input onChange={(e) => setGroupChatName(e.target.value)} type="text" placeholder='Group Chat Name' style={{ backgroundColor: 'transparent', border: 'none', outline: 'none', fontSize: '1rem', padding: '10px 15px', boxShadow: '0px 0px 5px 1px rgba(0,0,0,0.2)' }} />
+                        <input onChange={(e) => setGroupChatName(e.target.value)} type="text" placeholder='Group Chat Name' style={{ backgroundColor: 'transparent', border: 'none', outline: 'none', fontSize: '1rem', padding: '15px 15px', boxShadow: '0px 0px 5px 1px rgba(0,0,0,0.2)', width:'100%' }} />
 
-                        <Button onClick={handleRename} variant='contained' color='success' sx={{ marginLeft: 'auto' }}>{renameLoading === true ? (<Loader />) : 'Rename'}</Button>
+                        <Button onClick={handleRename} variant='contained' color='success' sx={{ marginLeft: 'auto', paddingX: '25px'}}>{renameLoading === true ? (<Loader />) : 'Rename'}</Button>
                     </form>
 
                     <form style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-                        <input onClick={() => setIsOpen(true)} onChange={(e) => handleSearch(e.target.value)} type="text" placeholder='Add Users eg: John Doe, Jane Doe' style={{ backgroundColor: 'transparent', border: 'none', outline: 'none', fontSize: '1rem', padding: '10px 15px', boxShadow: '0px 0px 5px 1px rgba(0,0,0,0.2)' }} />
+                        <input onClick={() => setIsOpen(true)} onChange={(e) => handleSearch(e.target.value)} type="text" placeholder='Add Users eg: John Doe, Jane Doe' style={{ backgroundColor: 'transparent', border: 'none', outline: 'none', fontSize: '1rem', padding: '15px 15px', boxShadow: '0px 0px 5px 1px rgba(0,0,0,0.2)' }} />
                     </form>
 
                     {/* render searched user */}

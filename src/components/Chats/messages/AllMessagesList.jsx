@@ -12,7 +12,7 @@ const AllMessagesList = ({ messages }) => {
 
     return (
         <ScrollableFeed>
-            <Typography sx={{display:'flex', justifyContent:'center', alignItems:'center', height:'50%', color:'white', fontSize:'18px'}}>Write Something To Start Chatting</Typography>
+            {/* <Typography sx={{display:'flex', justifyContent:'center', alignItems:'center', height:'50%', fontSize:'18px', paddingX:'5px'}}>Write Something To Start Chatting</Typography> */}
             {messages && messages.map((message, index) => (
                 <Box key={message._id} sx={{ display: 'flex' }}>
                     {
@@ -22,15 +22,13 @@ const AllMessagesList = ({ messages }) => {
                     }
 
                     <Typography sx={{
-                        background: message.sender._id === user.user._id ? '#ECFFDC' : '#2AAA8A',
+                        background: message.sender._id === user.user._id ? '#D9FDD3' : '#FFFFFF',
                         marginLeft: isSameSenderMargin(messages, message, index, user.user._id),
-                        marginTop: isSameUser(messages, message, index, user.user._id) ? '4px' : "10px",
-                        borderRadius: '20px',
-                        padding: '4px 10px',
+                        marginTop: isSameUser(messages, message, index, user.user._id) ? '2px' : "10px",
+                        borderRadius: '10px',
+                        padding: '6px 12px',
                         maxWidth: '75%',
-                        color: '#222',
-                        // fontWeight:'600',
-                        letterSpacing:'0.5px',
+                        color: '#555',
                         fontSize:{xs:'14px', sm:'16px'}
                     }}
                     > {message.content}

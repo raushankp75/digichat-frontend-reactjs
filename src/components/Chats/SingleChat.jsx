@@ -2,8 +2,9 @@ import { Avatar, Box, Button, CardMedia, Paper, Typography } from '@mui/material
 import React, { useEffect, useState } from 'react'
 import { ChatState } from '../../context/ChatProvider'
 import { BsArrowLeftShort } from 'react-icons/bs'
+import { IoSend } from 'react-icons/io5'
 import { getSenderEmail, getSenderName, getSenderPic } from '../../config/chatLogics'
-import ProfileModal from '../ProfileModal'
+import ProfileSidebar from '../ProfileSidebar'
 
 import { CgProfile } from 'react-icons/cg'
 import UpdateGroupChatSidebar from '../groupchats/UpdateGroupChatSidebar'
@@ -16,6 +17,8 @@ import AllMessagesList from './messages/AllMessagesList'
 
 import Lottie from 'lottie-react'
 import TypingAnimation from '../typingAnimation.json'
+
+import ChatWallpaper from '../../assets/chatWallpaper.png'
 
 
 import { io } from 'socket.io-client'
@@ -40,8 +43,8 @@ const SingleChat = ({ fetchChatsAgain, setFetchChatsAgain }) => {
     const [typing, setTyping] = useState(false)
     const [isTyping, setIsTyping] = useState(false)
 
-    // for profile modal
-    let [profilePopupModal, setProfilePopupModal] = useState(false)
+    // for profile sidebar
+    let [profileSidebar, setProfileSidebar] = useState(false)
 
     // for update group sidebar
     let [isOpenSidebar, setIsOpenSidebar] = useState(false)
@@ -193,22 +196,25 @@ const SingleChat = ({ fetchChatsAgain, setFetchChatsAgain }) => {
         <>
             {selectedChat ? (
                 <>
-                    <Box sx={{ fontSize: { xs: '22px', sm: '30px' }, paddingX: '5px', paddingY: '11px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: '#097969', color:'white' }}>
+                    <Box sx={{
+                        fontSize: { xs: '22px', sm: '30px' }, background: { xs: '#00A783', sm: '#F0F2F5' },
+                        color: { xs: 'white', sm: '#222' }, paddingX: '5px', paddingY: '11px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #D9E4EC', paddingLeft: { xs: '0', sm: '15px' }
+                    }}>
                         {!selectedChat.isGroupChat ? (
                             <>
-                                <Box sx={{display:'flex', alignItems:'center'}}>
-                                    <Typography sx={{ display: { xs: 'flex', sm: 'none' } }} onClick={() => setSelectedChat('')}><BsArrowLeftShort color='white' size={30} /></Typography>
+                                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                                    <Typography sx={{ display: { xs: 'flex', sm: 'none' } }} onClick={() => setSelectedChat('')}><BsArrowLeftShort size={30} /></Typography>
                                     <Box sx={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
                                         <Avatar src={getSenderPic(user, selectedChat.users)} alt="Remy Sharp" />
-                                        <Typography sx={{fontSize:'20px', fontWeight:'600'}}>{getSenderName(user, selectedChat.users)}</Typography>
+                                        <Typography sx={{ fontSize: { xs: '18px', sm: '20px' }, textTransform: 'capitalize' }}>{getSenderName(user, selectedChat.users)}</Typography>
                                     </Box>
                                 </Box>
 
 
                                 {/* Profile Modal */}
-                                <Button onClick={() => setProfilePopupModal(true)}><CgProfile size={30} /></Button>
+                                <Button onClick={() => setProfileSidebar(true)}><CgProfile size={30} /></Button>
 
-                                <ProfileModal profilePopupModal={profilePopupModal} onClose={() => setProfilePopupModal(false)}>
+                                <ProfileSidebar profileSidebar={profileSidebar} onClose={() => setProfileSidebar(false)}>
                                     <Box sx={{ textAlign: 'center', width: '256px', color: 'black', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px' }}>
                                         <CardMedia
                                             component='img'
@@ -219,14 +225,18 @@ const SingleChat = ({ fetchChatsAgain, setFetchChatsAgain }) => {
                                         <p>{getSenderName(user, selectedChat.users)}</p>
                                         <p>{getSenderEmail(user, selectedChat.users)}</p>
                                     </Box>
-                                </ProfileModal>
+                                </ProfileSidebar>
                             </>
                         ) : (
                             <>
-                                <Box sx={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
-                                    <Avatar src="" alt="Remy Sharp" />
-                                    <Typography>{selectedChat.chatName.toUpperCase()}</Typography>
+                                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                                    <Typography sx={{ display: { xs: 'flex', sm: 'none' } }} onClick={() => setSelectedChat('')}><BsArrowLeftShort size={30} /></Typography>
+                                    <Box sx={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+                                        <Avatar src="" alt="Remy Sharp" />
+                                        <Typography sx={{ fontSize: { xs: '18px', sm: '20px' }, textTransform: 'capitalize' }}>{selectedChat.chatName}</Typography>
+                                    </Box>
                                 </Box>
+
 
                                 {/* Update Group Chat Sidebar */}
                                 <Button onClick={() => setIsOpenSidebar(true)}><CgProfile size={30} /></Button>
@@ -239,15 +249,15 @@ const SingleChat = ({ fetchChatsAgain, setFetchChatsAgain }) => {
 
                     {/* chat screen */}
                     {/* background:'#E8E8E8' */}
-                    <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', padding: '10px', background: '#333', overflowY: 'hidden', height:'100%' }}>
+                    <Box style={{ backgroundImage: `url(${ChatWallpaper})` }} sx={{display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', paddingX: {xs:'10px', sm: '60px'}, overflowY: 'hidden', height: '100%' }}>
                         {/* // Messages List */}
                         {loading ? (
                             <Loader />
                         ) : (
                             <>
-                            <Box sx={{ display: 'flex', flexDirection: 'column', overflowY: 'auto', overflowX: 'none' }}>
-                                <AllMessagesList messages={messages} />
-                            </Box>
+                                <Box sx={{ display: 'flex', flexDirection: 'column', overflowY: 'auto', overflowX: 'none' }}>
+                                    <AllMessagesList messages={messages} />
+                                </Box>
                             </>
                         )}
 
@@ -261,16 +271,17 @@ const SingleChat = ({ fetchChatsAgain, setFetchChatsAgain }) => {
                                     style={{ width: '80px' }} />
                             </Box>
                         ) : (<></>)}
-
-                        <form onSubmit={SendMessage} style={{ display: 'flex', gap: '10px', marginTop: '8px' }}>
-                            <input type="text" value={newMessage} onChange={typingChangeHandle} required placeholder='Write something here... ' style={{ backgroundColor: '#444', border: 'none', outline: 'none', fontSize: '1rem', padding: '10px 15px', boxShadow: '0px 0px 5px 1px rgba(0,0,0,0.2)', width: '100%', color: 'white' }} />
-
-                            <Button type='submit' variant='contained' color='success' sx={{ marginLeft: 'auto' }}>Send</Button>
-                        </form>
                     </Box>
+
+                    {/* chat box */}
+                    <form onSubmit={SendMessage} style={{ display: 'flex', gap: '10px', background: '#F0F2F5', padding: '15px 25px' }}>
+                        <input type="text" value={newMessage} onChange={typingChangeHandle} required placeholder='Write something here... ' style={{ backgroundColor: 'white', borderRadius: '10px', border: 'none', outline: 'none', fontSize: '1rem', padding: '15px 15px', boxShadow: '0px 0px 5px 1px rgba(0,0,0,0.2)', width: '100%' }} />
+
+                        <Button type='submit' variant='outlined' sx={{ marginLeft: 'auto', borderRadius: '50%', height: '50px', width: '50px' }}><IoSend size={25} /></Button>
+                    </form>
                 </>
             ) : (
-                <Typography sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%', fontSize: { xs: '16px', sm: '28px', background:'#222', color:'white' } }}>Clik on a user to start chatting</Typography>
+                <Typography sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%', fontSize: { xs: '16px', sm: '28px', background: '#F0F2F5' } }}>Clik on a user to start chatting</Typography>
             )}
         </>
     )

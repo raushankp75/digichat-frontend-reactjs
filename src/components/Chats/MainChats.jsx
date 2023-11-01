@@ -56,28 +56,21 @@ const MainChats = ({ fetchChatsAgain }) => {
 
 
   return (
-    <Box sx={{ display: { xs: selectedChat ? 'none' : 'flex', sm: 'flex' }, width: { xs: '100%', sm: '30%' }, flexDirection:'column', background:'#222'}}>
+    <Box sx={{ display: { xs: selectedChat ? 'none' : 'flex', sm: 'flex' }, width: { xs: '100%', sm: '30%' }, flexDirection: 'column', background: '#FFFFFF' }}>
       <Header />
       <SearchBox />
 
-      <Box sx={{ color: 'white', paddingBottom: '4px', fontSize: '18px', display: 'flex', width: '100%', justifyContent: 'space-between', alignItems: 'center' }}>
-        <Typography sx={{ fontSize: { xs: '20px', sm: '20px' } }}>Chats</Typography>
-      </Box>
-
-
-
-      <Box sx={{ display: 'flex', flexDirection: 'column', gap: '5px', overflowY: 'auto', overflowX: 'hidden' }}>
+      <Box sx={{ display: 'flex', flexDirection: 'column', overflowY: 'auto', overflowX: 'hidden', paddingX: '12px', paddingY: '8px' }}>
         {
           chats.map((chat) => (
-            <Paper onClick={() => setSelectedChat(chat)} key={chat._id} sx={{ background: selectedChat === chat ? 'gray' : 'transparent', color: selectedChat === chat ? '#222' : 'white', paddingX: '10px', paddingY: '5px', display: 'flex', alignItems: 'center', gap: '20px', cursor: 'pointer', }} elevation={2}>
+            <Box onClick={() => setSelectedChat(chat)} key={chat._id} sx={{ background: selectedChat === chat ? '#C1E1C1' : 'transparent', color: '#111B21', paddingX: '15px', paddingY: '10px', display: 'flex', alignItems: 'center', gap: '15px', cursor: 'pointer', borderBottom: '2px solid #EEEDE7' }}>
               <Avatar src={!chat.isGroupChat ? getSenderPic(loggedUser, chat.users) : ''} alt="Remy Sharp" />
               <Box>
-                <Typography>
+                <Typography sx={{ fontSize: { xs: '16px', sm: '18px', fontWeight: '500' } }}>
                   {!chat.isGroupChat ? getSenderName(loggedUser, chat.users) : chat.chatName}
-                  {/* {console.log(getSender(loggedUser, chat.users))} */}
                 </Typography>
               </Box>
-            </Paper>
+            </Box>
           ))
         }
       </Box>

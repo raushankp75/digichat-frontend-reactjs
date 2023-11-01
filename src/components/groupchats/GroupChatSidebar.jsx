@@ -11,7 +11,7 @@ import SearchUserList from '../search/SearchUserList'
 import UserBadge from '../search/UserBadge';
 
 
-const GroupChatSidebar = ({ isOpenSidebar, onClose }) => {
+const GroupChatSidebar = ({ isOpenSidebarGroupChat, onCloseGroupChat }) => {
 
     const [groupChatName, setGroupChatName] = useState()
     const [selectedUsers, setSelectedUsers] = useState([])
@@ -70,7 +70,7 @@ const GroupChatSidebar = ({ isOpenSidebar, onClose }) => {
 
             setChats([data, ...chats]);
             // console.log(chats)
-            onClose()
+            onCloseGroupChat()
             toast.success('Group Chat Created')
         } catch (error) {
             // console.log(error)
@@ -100,10 +100,10 @@ const GroupChatSidebar = ({ isOpenSidebar, onClose }) => {
 
     return (
         <>
-            <Box onClick={onClose} sx={{ position: 'fixed', inset: '0', transition: 'colors', zIndex: '100', visibility: isOpenSidebar ? 'visible' : 'hidden' }}>
+            <Box onClick={onCloseGroupChat} sx={{ position: 'fixed', inset: '0', transition: 'colors', zIndex: '100', visibility: isOpenSidebarGroupChat ? 'visible' : 'hidden' }}>
                 {/*Sidebar */}
-                <Box onClick={(e) => e.stopPropagation()} sx={{ width: { xs: '95%', sm: '300px' }, display: 'flex', flexDirection: 'column', height: '100vh', background: 'white', color: 'black', position: 'absolute', overflowX: 'hidden', overflowY: 'auto', boxShadow: '0px 0px 30px 2px rgba(0,0,0,0.2)', padding: '10px', transition: 'all 4s linear', transitionDuration: '0.5s', left: isOpenSidebar ? '0' : '-300px' }}>
-                    <button onClick={onClose} style={{ width: 'fixed', alignSelf: 'end', background: 'transparent', outline: 'none', border: 'none', cursor: 'pointer', marginBottom: '10px' }}><RxCross2 size={30} /></button>
+                <Box onClick={(e) => e.stopPropagation()} sx={{ width: { xs: '95%', sm: '449px' }, display: 'flex', flexDirection: 'column', height: '100vh', background: 'white', color: 'black', position: 'absolute', overflowX: 'hidden', overflowY: 'auto', boxShadow: '0px 0px 30px 2px rgba(0,0,0,0.2)', padding: '10px', transition: 'all 4s linear', transitionDuration: '0.4s', left: isOpenSidebarGroupChat ? '0' : '-449px' }}>
+                    <button onClick={onCloseGroupChat} style={{ width: 'fixed', alignSelf: 'end', background: 'transparent', outline: 'none', border: 'none', cursor: 'pointer', marginBottom: '10px' }}><RxCross2 size={30} /></button>
 
                     <Typography textAlign='center' fontSize='25px'>Create Group Chat</Typography>
                     <Paper elevation={2} sx={{ display: 'flex', flexDirection: 'column', gap: '10px', padding: '10px' }}>

@@ -141,7 +141,7 @@ const Signup = () => {
     return (
         <Box>
             {/* <Typography sx={{ fontSize: '18px', color:'gray', textAlign:'center' }}>Sign up to chat with your friends</Typography> */}
-            {JSON.stringify(signupData)}
+            {/* {JSON.stringify(signupData)} */}
             <form>
                 {loading ?
                     (<Loader />)

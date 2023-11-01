@@ -9,7 +9,7 @@ const UserList = ({ user, handleFunction }) => {
 
     return (
         <Grid item lg={12} sm={12} xs={12} sx={{ cursor: 'pointer' }}>
-            <Paper onClick={handleFunction} sx={{ padding: '15px', display: 'flex', alignItems: 'center', gap: '20px' }} elevation={1}>
+            <Paper onClick={handleFunction} sx={{ padding: '15px', display: 'flex', alignItems: 'center', gap: '20px', background:'#F0F2F5', marginBottom:'5px' }} elevation={1}>
 
                 <Avatar src={user.pic} alt="Remy Sharp" />
 

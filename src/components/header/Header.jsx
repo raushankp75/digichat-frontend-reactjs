@@ -8,28 +8,27 @@ import IconButton from '@mui/material/IconButton';
 import { Avatar, Badge, CardMedia, Menu, MenuItem, Skeleton, TextField } from '@mui/material';
 import { IoIosNotifications } from 'react-icons/io'
 import { ChatState } from '../../context/ChatProvider';
-import ProfileModal from '../ProfileModal';
-import { doLogout, isAuthenticated } from '../../auth';
-import { useNavigate } from 'react-router-dom';
+import { doLogout } from '../../auth';
 import { getSenderName } from '../../config/chatLogics';
-import GroupChatSidebar from '../groupchats/GroupChatSidebar';
 import { useState } from 'react';
 
-import {BsFillPersonPlusFill} from 'react-icons/bs'
+import { FaAddressCard } from 'react-icons/fa'
+import SearchBox from '../search/SearchBox';
+import ProfileSidebar from '../ProfileSidebar';
 
 
 
 
 export default function Header() {
 
-    // for group chat sidebar
-    let [isOpenSidebar, setIsOpenSidebar] = useState(false)
+    // for create chat sidebar
+    let [isOpenSidebarChat, setIsOpenSidebarChat] = useState(false)
 
     const [profileOpen, setProfileOpen] = useState(null)
     const [notificationOpen, setNotificationOpen] = useState(null)
 
-    // for profile modal
-    let [profilePopupModal, setProfilePopupModal] = useState(false)
+ // for profile sidebar
+ let [profileSidebar, setProfileSidebar] = useState(false)
 
 
     // for open profile
@@ -56,8 +55,12 @@ export default function Header() {
 
 
     return (
-        <AppBar elevation={1} position="static" sx={{
-            background: '#097969',
+        <AppBar elevation={0} position="static" sx={{
+            background: { xs: '#00A783', sm: '#F0F2F5' },
+            color: { xs: 'white', sm: '#54656F' },
+            height: { xs: '15%', sm: '10%' },
+            borderRight: '1px solid #D9E4EC',
+            borderBottom: '1px solid #D9E4EC'
             // padding: {
             //     xs: '0px 5px', // 0 above
             //     sm: '0px 5px', // 600 above
@@ -83,10 +86,10 @@ export default function Header() {
 
 
 
-                <Box sx={{ display: 'flex', alignItems:'center' }}>
-                    {/* Group chat sidebar */}
-                    <BsFillPersonPlusFill size={28} onClick={() => setIsOpenSidebar(true)} cursor='pointer' />
-                    <GroupChatSidebar isOpenSidebar={isOpenSidebar} onClose={() => setIsOpenSidebar(false)} />
+                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                    {/* create chat or group chat sidebar */}
+                    <FaAddressCard size={28} onClick={() => setIsOpenSidebarChat(true)} cursor='pointer' />
+                    <SearchBox isOpenSidebarChat={isOpenSidebarChat} onCloseChat={() => setIsOpenSidebarChat(false)} />
 
 
                     {/* notification */}
@@ -126,7 +129,7 @@ export default function Header() {
                     <Button color="inherit" onClick={handleProfileOpen}><Avatar src='' alt="Remy Sharp" /></Button>
                     <Menu open={Boolean(profileOpen)} onClose={handleProfileClose} anchorEl={profileOpen}>
                         <MenuItem onClick={() => {
-                            setProfilePopupModal(true)
+                            setProfileSidebar(true)
                             handleProfileClose()
                         }}>Profile
                         </MenuItem>
@@ -139,7 +142,7 @@ export default function Header() {
 
                     {/* profile modal */}
                     {/* {profilePopupModal && <ProfileModal user={user} setProfilePopupModal={setProfilePopupModal} />} */}
-                    <ProfileModal profilePopupModal={profilePopupModal} onClose={() => setProfilePopupModal(false)}>
+                    <ProfileSidebar profileSidebar={profileSidebar} onClose={() => setProfileSidebar(false)}>
                         <Box sx={{ textAlign: 'center', width: '256px', color: 'black', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px' }}>
                             <CardMedia
                                 component='img'
@@ -150,9 +153,13 @@ export default function Header() {
                             <p>{user?.user?.name}</p>
                             <p>{user?.user?.email}</p>
                         </Box>
-                    </ProfileModal>
+                    </ProfileSidebar>
                 </Box>
             </Toolbar>
+
+            {/* <Box sx={{width:{xs:'25%', sm:'30%'}, position:{xs:'relative', sm:'static'}, top:'10px'}}>
+        <Typography sx={{ fontSize: { xs: '16px', sm: '20px' }, paddingLeft: '30px', marginX: '10px', borderBottom: {xs:'4px solid #FFFFFF', sm:'4px solid green'}, color:{xs:'white', sm:'green'} }}>Chats</Typography>
+      </Box> */}
         </AppBar>
     );
 }
