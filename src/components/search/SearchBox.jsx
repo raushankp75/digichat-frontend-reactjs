@@ -15,6 +15,7 @@ import SearchUserList from './SearchUserList';
 import { RxCross2 } from 'react-icons/rx'
 import { HiUsers } from 'react-icons/hi'
 import GroupChatSidebar from '../groupchats/GroupChatSidebar';
+import { baseUrl } from '../../auth/baseUrl';
 
 
 const SearchBox = ({ isOpenSidebarChat, onCloseChat }) => {
@@ -50,7 +51,7 @@ const SearchBox = ({ isOpenSidebarChat, onCloseChat }) => {
     //             }
     //         };
 
-    //         const { data } = await axios.get(`http://localhost:8000/api/user?search=${search}`, config)
+    //         const { data } = await axios.get(`${baseUrl}/api/user?search=${search}`, config)
 
     //         setSearchResult(data);
     //         // console.log("75", searchResult);
@@ -76,7 +77,7 @@ const SearchBox = ({ isOpenSidebarChat, onCloseChat }) => {
                 }
             };
 
-            const { data } = await axios.get(`http://localhost:8000/api/user?search=${search}`, config)
+            const { data } = await axios.get(`${baseUrl}/api/user?search=${search}`, config)
 
             setSearchResult(data);
             console.log("40", searchResult);
@@ -103,7 +104,7 @@ const SearchBox = ({ isOpenSidebarChat, onCloseChat }) => {
                 }
             };
 
-            const { data } = await axios.post(`http://localhost:8000/api/chat`, { userId }, config);
+            const { data } = await axios.post(`${baseUrl}/api/chat`, { userId }, config);
 
             // if chat already have in db then append it
             if (!chats.find((chat) => chat._id === data._id)) {

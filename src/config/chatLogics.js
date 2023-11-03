@@ -7,11 +7,11 @@ export const getSenderName = (loggedUser, users) => {
 // };
 
 export const getSenderPic = (loggedUser, users) => {
-    return users[0]?.id === loggedUser?.user._id ? users[1].pic : users[0].pic
+    return users[0]?._id === loggedUser?.user._id ? users[1].pic : users[0].pic
 }
 
 export const getSenderEmail = (loggedUser, users) => {
-    return users[0]?.id === loggedUser?.user._id ? users[1].email : users[0].email
+    return users[0]?._id === loggedUser?.user._id ? users[1].email : users[0].email
 }
 
 export const isSameSender = (messages, message, index, userId) => {
@@ -27,12 +27,16 @@ export const isLastMessage = (messages, index, userId) => {
 }
 
 export const isSameSenderMargin = (messages, message, index, userId) => {
-    if (index < messages.length - 1 && messages[index + 1].sender._id === message.sender._id && messages[index].sender._id !== userId) {
-        return 6
+    if (index < messages.length - 1 &&
+        messages[index + 1].sender._id === message.sender._id &&
+        messages[index].sender._id !== userId) {
+        return '0px'
     }
 
-    else if (index < messages.length - 1 && messages[index + 1].sender._id !== message.sender._id && messages[index].sender._id !== userId || (index === messages.length - 1 && messages[index].sender._id !== userId)) {
-        return 0
+    else if (index < messages.length - 1 &&
+        messages[index + 1].sender._id !== message.sender._id && messages[index].sender._id !== userId ||
+        (index === messages.length - 1 && messages[index].sender._id !== userId)) {
+        return '0px'
     }
 
     else {
@@ -40,6 +44,6 @@ export const isSameSenderMargin = (messages, message, index, userId) => {
     }
 }
 
-export const isSameUser = (messages, message, index) => {
+export const isLoggedInUser = (messages, message, index) => {
     return index > 0 && messages[index - 1].sender._id === message.sender._id
 }

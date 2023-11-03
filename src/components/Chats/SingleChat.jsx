@@ -19,14 +19,17 @@ import Lottie from 'lottie-react'
 import TypingAnimation from '../typingAnimation.json'
 
 import ChatWallpaper from '../../assets/chatWallpaper.png'
+import { baseUrl } from '../../auth/baseUrl'
 
 
 import { io } from 'socket.io-client'
 
 
 // for socket.io
-const ENDPOINT = "http://localhost:8000";
+const ENDPOINT = baseUrl;
 var socket, selectedChatCompare;
+
+
 
 
 const SingleChat = ({ fetchChatsAgain, setFetchChatsAgain }) => {
@@ -98,7 +101,7 @@ const SingleChat = ({ fetchChatsAgain, setFetchChatsAgain }) => {
                 }
             };
 
-            const { data } = await axios.get(`http://localhost:8000/api/message/${selectedChat._id}`, config)
+            const { data } = await axios.get(`${baseUrl}/api/message/${selectedChat._id}`, config)
 
             setMessages(data)
             setLoading(false)
@@ -171,7 +174,7 @@ const SingleChat = ({ fetchChatsAgain, setFetchChatsAgain }) => {
                 }
             };
 
-            const { data } = await axios.post(`http://localhost:8000/api/message`, {
+            const { data } = await axios.post(`${baseUrl}/api/message`, {
                 content: newMessage,
                 chatId: selectedChat._id
             }, config)
@@ -249,7 +252,7 @@ const SingleChat = ({ fetchChatsAgain, setFetchChatsAgain }) => {
 
                     {/* chat screen */}
                     {/* background:'#E8E8E8' */}
-                    <Box style={{ backgroundImage: `url(${ChatWallpaper})` }} sx={{display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', paddingX: {xs:'10px', sm: '60px'}, overflowY: 'hidden', height: '100%' }}>
+                    <Box style={{ backgroundImage: `url(${ChatWallpaper})` }} sx={{display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', paddingX: {xs:'10px', sm: '60px'}, overflowY: 'hidden', height: '100%', marginBottom:'10px' }}>
                         {/* // Messages List */}
                         {loading ? (
                             <Loader />

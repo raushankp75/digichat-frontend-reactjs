@@ -10,6 +10,7 @@ import axios from 'axios';
 import ChatLoading from '../loader/ChatLoading';
 import SearchUserList from '../search/SearchUserList'
 import Loader from '../Loader/Loader';
+import { baseUrl } from '../../auth/baseUrl';
 
 
 
@@ -45,7 +46,7 @@ const UpdateGroupChatSidebar = ({ isOpenSidebar, onClose, fetchChatsAgain, setFe
                 }
             };
 
-            const { data } = await axios.get(`http://localhost:8000/api/user?search=${search}`, config)
+            const { data } = await axios.get(`${baseUrl}/api/user?search=${search}`, config)
 
             setSearchResult(data);
             console.log("40", searchResult);
@@ -71,7 +72,7 @@ const UpdateGroupChatSidebar = ({ isOpenSidebar, onClose, fetchChatsAgain, setFe
                 }
             };
 
-            const { data } = await axios.put(`http://localhost:8000/api/chat/grouprename`, {
+            const { data } = await axios.put(`${baseUrl}/api/chat/grouprename`, {
                 chatId: selectedChat._id,
                 chatName: groupChatName
             }, config)
@@ -110,7 +111,7 @@ const UpdateGroupChatSidebar = ({ isOpenSidebar, onClose, fetchChatsAgain, setFe
                 }
             };
 
-            const { data } = await axios.put(`http://localhost:8000/api/chat/groupadd`, {
+            const { data } = await axios.put(`${baseUrl}/api/chat/groupadd`, {
                 chatId: selectedChat._id,
                 userId: existUser._id
             }, config)
@@ -145,7 +146,7 @@ const UpdateGroupChatSidebar = ({ isOpenSidebar, onClose, fetchChatsAgain, setFe
                 }
             };
 
-            const { data } = await axios.put(`http://localhost:8000/api/chat/groupremove`, {
+            const { data } = await axios.put(`${baseUrl}/api/chat/groupremove`, {
                 chatId: selectedChat._id,
                 userId: existUser._id
             }, config)
@@ -171,7 +172,7 @@ const UpdateGroupChatSidebar = ({ isOpenSidebar, onClose, fetchChatsAgain, setFe
     return (
         <Box onClick={onClose} sx={{ position: 'fixed', inset: '0', transition: 'colors', zIndex: '100', visibility: isOpenSidebar ? 'visible' : 'hidden' }}>
             {/*Sidebar */}
-            <Box onClick={(e) => e.stopPropagation()} sx={{ width: { xs: '95%', sm: '449px' }, display: 'flex', flexDirection: 'column', height: '100vh', background: 'white', color: 'black', position: 'absolute', overflowX: 'hidden', overflowY: 'auto', boxShadow: '0px 0px 30px 2px rgba(0,0,0,0.2)', padding: '10px', transition: 'all 4s linear', transitionDuration: '0.5s', left: isOpenSidebar ? '0' : '-449px' }}>
+            <Box onClick={(e) => e.stopPropagation()} sx={{ width: { xs: '95%', sm: '449px' }, display: 'flex', flexDirection: 'column', gap: '10px', height: '100vh', background: 'white', color: 'black', position: 'absolute', overflowX: 'hidden', overflowY: 'auto', boxShadow: '0px 0px 30px 2px rgba(0,0,0,0.2)', padding: '10px', transition: 'all 4s linear', transitionDuration: '0.5s', left: isOpenSidebar ? '0' : '-449px' }}>
                 <button onClick={onClose} style={{ width: 'fixed', alignSelf: 'end', background: 'transparent', outline: 'none', border: 'none', cursor: 'pointer', marginBottom: '10px' }}><RxCross2 size={30} /></button>
 
                 <Typography fontSize='30px' marginBottom='20px'>{selectedChat.chatName}</Typography>
@@ -196,7 +197,7 @@ const UpdateGroupChatSidebar = ({ isOpenSidebar, onClose, fetchChatsAgain, setFe
 
                     {/* render searched user */}
                     {isOpen &&
-                        <Box onClick={(e) => e.stopPropagation()} sx={{ position: 'fixed', width: '26%', top: '300px', zIndex: '100', background: 'white', display: 'flex', flexDirection: 'column', borderRadius: '10px', transition: 'all', marginBottom: '4px', maxHeight: '75vh', overflowY: 'auto', overflowX: 'hidden' }}>
+                        <Box onClick={(e) => e.stopPropagation()} sx={{ width: '100%', background: 'white', display: 'flex', flexDirection: 'column', marginBottom: '4px', overflowY: 'auto', overflowX: 'hidden', height: '30vh' }}>
                             {/* <p onClick={() => setIsOpen(false)}>hiii</p> */}
 
                             {loading ? (
@@ -213,10 +214,10 @@ const UpdateGroupChatSidebar = ({ isOpenSidebar, onClose, fetchChatsAgain, setFe
                         </Box>
                     }
 
-                    <Button onClick={() => handleRemoveUser(user.user)} varient='danger'>
+                </Paper>
+                    <Button onClick={() => handleRemoveUser(user.user)} variant='contained' color='error' sx={{ marginLeft: 'auto' }}>
                         Leave Group
                     </Button>
-                </Paper>
             </Box>
         </Box>
     )

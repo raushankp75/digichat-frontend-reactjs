@@ -13,6 +13,7 @@ import { Grid } from 'react-loader-spinner';
 import { getSenderName, getSenderPic } from '../../config/chatLogics';
 import GroupChatSidebar from '../groupchats/GroupChatSidebar';
 import Header from '../header/Header';
+import { baseUrl } from '../../auth/baseUrl';
 
 
 const MainChats = ({ fetchChatsAgain }) => {
@@ -33,7 +34,7 @@ const MainChats = ({ fetchChatsAgain }) => {
         }
       };
 
-      const { data } = await axios.get(`http://localhost:8000/api/chat`, config);
+      const { data } = await axios.get(`${baseUrl}/api/chat`, config);
 
       // console.log(data, 32)
       setChats(data);

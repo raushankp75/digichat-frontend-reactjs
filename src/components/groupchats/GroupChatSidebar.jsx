@@ -9,6 +9,7 @@ import axios from 'axios';
 import ChatLoading from '../loader/ChatLoading';
 import SearchUserList from '../search/SearchUserList'
 import UserBadge from '../search/UserBadge';
+import { baseUrl } from '../../auth/baseUrl';
 
 
 const GroupChatSidebar = ({ isOpenSidebarGroupChat, onCloseGroupChat }) => {
@@ -38,7 +39,7 @@ const GroupChatSidebar = ({ isOpenSidebarGroupChat, onCloseGroupChat }) => {
                 }
             };
 
-            const { data } = await axios.get(`http://localhost:8000/api/user?search=${search}`, config)
+            const { data } = await axios.get(`${baseUrl}/api/user?search=${search}`, config)
 
             setSearchResult(data);
             console.log("40", searchResult);
@@ -52,7 +53,7 @@ const GroupChatSidebar = ({ isOpenSidebarGroupChat, onCloseGroupChat }) => {
 
     const handleSubmit = async () => {
         console.log(groupChatName, selectedUsers)
-        if(!groupChatName || !selectedUsers){
+        if (!groupChatName || !selectedUsers) {
             toast.error('Please fill all the fields')
         }
 
@@ -63,7 +64,7 @@ const GroupChatSidebar = ({ isOpenSidebarGroupChat, onCloseGroupChat }) => {
                 }
             };
 
-            const { data } = await axios.post(`http://localhost:8000/api/chat/group`, {
+            const { data } = await axios.post(`${baseUrl}/api/chat/group`, {
                 name: groupChatName,
                 users: JSON.stringify(selectedUsers.map((user) => user._id))
             }, config)
@@ -102,7 +103,7 @@ const GroupChatSidebar = ({ isOpenSidebarGroupChat, onCloseGroupChat }) => {
         <>
             <Box onClick={onCloseGroupChat} sx={{ position: 'fixed', inset: '0', transition: 'colors', zIndex: '100', visibility: isOpenSidebarGroupChat ? 'visible' : 'hidden' }}>
                 {/*Sidebar */}
-                <Box onClick={(e) => e.stopPropagation()} sx={{ width: { xs: '95%', sm: '449px' }, display: 'flex', flexDirection: 'column', height: '100vh', background: 'white', color: 'black', position: 'absolute', overflowX: 'hidden', overflowY: 'auto', boxShadow: '0px 0px 30px 2px rgba(0,0,0,0.2)', padding: '10px', transition: 'all 4s linear', transitionDuration: '0.4s', left: isOpenSidebarGroupChat ? '0' : '-449px' }}>
+                <Box onClick={(e) => e.stopPropagation()} sx={{ width: { xs: '95%', sm: '449px' }, display: 'flex', flexDirection: 'column', gap: '10px', height: '100vh', background: 'white', color: 'black', position: 'absolute', overflowX: 'hidden', overflowY: 'auto', boxShadow: '0px 0px 30px 2px rgba(0,0,0,0.2)', padding: '10px', transition: 'all 4s linear', transitionDuration: '0.4s', left: isOpenSidebarGroupChat ? '0' : '-449px' }}>
                     <button onClick={onCloseGroupChat} style={{ width: 'fixed', alignSelf: 'end', background: 'transparent', outline: 'none', border: 'none', cursor: 'pointer', marginBottom: '10px' }}><RxCross2 size={30} /></button>
 
                     <Typography textAlign='center' fontSize='25px'>Create Group Chat</Typography>
@@ -112,13 +113,9 @@ const GroupChatSidebar = ({ isOpenSidebarGroupChat, onCloseGroupChat }) => {
 
                             <input onClick={() => setIsOpen(true)} onChange={(e) => handleSearch(e.target.value)} type="text" placeholder='Add Users eg: John Doe, Jane Doe' style={{ backgroundColor: 'transparent', border: 'none', outline: 'none', fontSize: '1rem', padding: '10px 15px', boxShadow: '0px 0px 5px 1px rgba(0,0,0,0.2)' }} />
                         </form>
-                        {/* selected users */}
-                        {selectedUsers.map((user) => (
-                            <UserBadge key={user._id} user={user} handleFunction={() => handleDelete(user)} />
-                        ))}
                         {/* render searched user */}
                         {isOpen &&
-                            <Box onClick={(e) => e.stopPropagation()} sx={{ position: 'fixed', width: '26%', top: '200px', zIndex: '100', background: 'white', display: 'flex', flexDirection: 'column', borderRadius: '10px', transition: 'all', marginBottom: '4px', maxHeight: '75vh', overflowY: 'auto', overflowX: 'hidden' }}>
+                            <Box onClick={(e) => e.stopPropagation()} sx={{ width: '100%', background: 'white', display: 'flex', flexDirection: 'column', marginBottom: '4px', overflowY: 'auto', overflowX: 'hidden', height: '40vh' }}>
                                 {/* <p onClick={() => setIsOpen(false)}>hiii</p> */}
 
                                 {loading ? (
@@ -135,10 +132,15 @@ const GroupChatSidebar = ({ isOpenSidebarGroupChat, onCloseGroupChat }) => {
                                 {/* {loadingChat && <Loader />} */}
                             </Box>
                         }
-
-
-                        <Button onClick={handleSubmit} variant='contained' color='success' sx={{ marginLeft: 'auto' }}>Create Chat</Button>
                     </Paper>
+                    {/* selected users */}
+                    <Box sx={{ width: '100%', display: 'flex', flexWrap: 'wrap', gap: '5px', fontSize: '14px', marginBottom: '10px' }}>
+                        {selectedUsers.map((user) => (
+                            <UserBadge key={user._id} user={user} handleFunction={() => handleDelete(user)} />
+                        ))}
+                    </Box>
+
+                    <Button onClick={handleSubmit} variant='contained' color='success' sx={{ marginLeft: 'auto' }}>Create Chat</Button>
                 </Box>
             </Box>
         </>
