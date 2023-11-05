@@ -44,7 +44,7 @@ const Login = () => {
   // submit all data to api
   const submitHandler = (e) => {
     e.preventDefault();
-    console.log(loginData);
+    // console.log(loginData);
 
     // validation
     setLoading(true);
@@ -57,12 +57,12 @@ const Login = () => {
 
     // Submit data to server to generate token
     login(loginData).then((loggedInData) => {
-      console.log(loggedInData.token)
-      console.log(loggedInData.user)
+      // console.log(loggedInData.token)
+      // console.log(loggedInData.user)
 
       // save data to localstorage
       doLogin(loggedInData, () => {
-        console.log('Login details is saved to localStorage')
+        // console.log('Login details is saved to localStorage')
 
         // navigate to home page
         // navigate('/user/chats');

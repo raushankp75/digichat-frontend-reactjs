@@ -1,6 +1,5 @@
 import React from 'react'
-import { Avatar, Box, Button, Modal, Paper, Typography } from '@mui/material'
-import { GrFormClose } from 'react-icons/gr'
+import { Box } from '@mui/material'
 
 import { RxCross2 } from 'react-icons/rx'
 

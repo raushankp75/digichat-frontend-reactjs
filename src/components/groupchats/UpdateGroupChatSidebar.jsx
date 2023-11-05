@@ -49,7 +49,7 @@ const UpdateGroupChatSidebar = ({ isOpenSidebar, onClose, fetchChatsAgain, setFe
             const { data } = await axios.get(`${baseUrl}/api/user?search=${search}`, config)
 
             setSearchResult(data);
-            console.log("40", searchResult);
+            // console.log("40", searchResult);
             setLoading(false);
         } catch (error) {
             toast.error('Failed to load the search results')

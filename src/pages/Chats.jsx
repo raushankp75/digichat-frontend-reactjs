@@ -3,7 +3,7 @@ import { ChatState } from '../context/ChatProvider'
 import MainChats from '../components/Chats/MainChats';
 import ChatBox from '../components/Chats/ChatBox';
 import { Box } from '@mui/material';
-import Header from '../components/header/Header';
+
 
 const Chats = () => {
 

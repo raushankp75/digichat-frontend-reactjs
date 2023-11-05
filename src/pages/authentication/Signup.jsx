@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import { Box, Button, CardMedia, TextField, Typography } from '@mui/material'
 import { BiSolidHide, BiSolidShow } from 'react-icons/bi'
-import Loader from '../../components/';
+import Loader from '../../components/loader/Loader';
 
 import { signup } from '../../services/userService';
 
@@ -49,12 +49,12 @@ const Signup = () => {
                 }
             ).then(res => res.json())
                 .then(data => {
-                    console.log(data)
+                    // console.log(data)
                     setPic(data.url.toString());
                     setLoading(false);
                 })
                 .catch((err) => {
-                    console.log(err);
+                    // console.log(err);
                     setLoading(false);
                 })
         } else {
@@ -92,7 +92,7 @@ const Signup = () => {
 
     // submit all data to api
     const submitHandler = (e) => {
-        console.log(signupData, pic);
+        // console.log(signupData, pic);
         e.preventDefault();
 
         // validation
@@ -111,13 +111,13 @@ const Signup = () => {
 
         // call server api for sending data here
         signup(signupData, pic).then((res) => {
-            console.log("Signup Success", res)
+            // console.log("Signup Success", res)
             setLoading(false);
             toast.success('User Registered successfully')
             resetData();
         }).catch((error) => {
             if (error.response.data.message) {
-                console.log("Signup Error", error.response.data.message)
+                // console.log("Signup Error", error.response.data.message)
                 setLoading(false);
                 toast.error(error.response.data.message)
             }
