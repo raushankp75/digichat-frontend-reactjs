@@ -9,7 +9,7 @@ export const signup = (signupData, pic) => {
     }
     return myAxios.post('/api/user', {signupData, pic}, config)
         .then((response) => {
-            return response.data
+            return response
         })
 }
 
@@ -23,6 +23,6 @@ export const login = (loginData) => {
     }
     return myAxios.post('/api/login', loginData, config)
         .then((response) => {
-            return response.data
+            return response
         })
 }

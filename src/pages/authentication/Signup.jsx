@@ -111,7 +111,7 @@ const Signup = () => {
 
         // call server api for sending data here
         signup(signupData, pic).then((res) => {
-            console.log("Signup Success", res)
+            // console.log("Signup Success", res)
             setLoading(false);
             toast.success('User Registered successfully')
             resetData();
