@@ -7,7 +7,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import UserBadge from '../search/UserBadge';
 import axios from 'axios';
-import ChatLoading from '../loader/ChatLoading';
+import ChatLoading from '../Loader/ChatLoading';
 import SearchUserList from '../search/SearchUserList'
 import Loader from '../Loader/Loader';
 import { baseUrl } from '../../auth/baseUrl';
