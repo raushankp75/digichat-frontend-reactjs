@@ -5,7 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import { Box, Button, TextField, Typography } from '@mui/material'
 import { BiSolidHide, BiSolidShow } from 'react-icons/bi'
-import Loader from '../../components/Loader/Loader';
+import Loader from '../../components/loader/Loader';
 import { login } from '../../services/userService';
 import { useNavigate } from 'react-router-dom';
 import { doLogin } from '../../auth';

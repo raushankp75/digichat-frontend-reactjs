@@ -5,7 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import { Box, Button, CardMedia, TextField, Typography } from '@mui/material'
 import { BiSolidHide, BiSolidShow } from 'react-icons/bi'
-import Loader from '../../components/Loader/Loader';
+import Loader from '../../components/';
 
 import { signup } from '../../services/userService';
 

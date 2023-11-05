@@ -7,7 +7,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import axios from 'axios';
-import Loader from '../Loader/Loader';
+import Loader from '../loader/Loader';
 import ChatLoading from '../loader/ChatLoading';
 import { ChatState } from '../../context/ChatProvider';
 import SearchUserList from './SearchUserList';

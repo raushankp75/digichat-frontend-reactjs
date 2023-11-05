@@ -8,7 +8,7 @@ import ProfileSidebar from '../ProfileSidebar'
 
 import { CgProfile } from 'react-icons/cg'
 import UpdateGroupChatSidebar from '../groupchats/UpdateGroupChatSidebar'
-import Loader from '../Loader/Loader'
+import Loader from '../'
 
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
