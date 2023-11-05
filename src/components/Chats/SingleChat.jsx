@@ -26,7 +26,7 @@ import { io } from 'socket.io-client'
 
 
 // for socket.io
-const ENDPOINT = baseUrl;
+const ENDPOINT = 'https://chat-app-gcpa.onrender.com';
 var socket, selectedChatCompare;
 
 
